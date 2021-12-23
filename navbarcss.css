@@ -4,9 +4,6 @@ body{
     margin: 0;
     padding: 0;
     justify-content: space-between;
-    background: url(./IMG/Background.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
 }
 
 #leftside{
