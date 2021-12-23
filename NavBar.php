@@ -8,6 +8,19 @@
     <title>navbar</title>
     <link rel="stylesheet" href="navbarcss.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+            $('.sidebarBtn').click(function(){
+                $('.sidebar').toggleClass('active');
+                $('.sidebarBtn').toggleClass('toggle');
+            })
+        })
+
+
+
+    </script>
 </head>
 
 <body>
@@ -22,15 +35,15 @@
             </form>
         </div>
     </div>
-
-
-
-
-    <div id="navigation">
-        <p class="menuItem">RECETTES DU MONDE</p>
-        <p class="menuItem">INSCRIPTION</p>
-        <p class="menuItem">CONNEXION</p>
-    </div>
+    <div class="sidebar">
+      <ul>
+          <li><a href="#">RECETTES DU MONDE</a></li>
+          <li><a href="#">CONNEXION</a></li>
+          <li><a href="#">INSCRIPTION</a></li>
+      </ul>
+      <button class="sidebarBtn"><span></span></button>
+      
+  </div>
 
 </body>
 
