@@ -23,7 +23,7 @@
     </script>
 </head>
 
-<body>
+<body class="bodynav">
     <div id="leftside">
         <div id="logo">
             <img src="./IMG/LOGO.png" alt="logo" class="logo">
