@@ -15,8 +15,14 @@
 <?php include('./NavBar.php'); ?>
 <div class="Acceuil">
     <div class="recettes">
-
-
+    <div class="vues">
+    <div><img src="./IMG/pancake.jpg" alt="pancakes"><a href="#">Voir recette</a></div>
+    <div><img src="./IMG/lasagnes.jpg" alt="lasagnes"><a href="#">Voir recette</a></div>
+    <div><img src="./IMG/burger.jpg" alt="burger"><a href="#">Voir recette</a></div>
+    <div><img src="./IMG/cake.jpg" alt="cake"><a href="#">Voir recette</a></div>
+    <div><img src="./IMG/chicken.jpg" alt="chicken"><a href="#">Voir recette</a></div>
+    <div><img src="./IMG/cookies.jpg" alt="cookies"><a href="#">Voir recette</a></div>
+    </div>
     </div>
 
 </div>

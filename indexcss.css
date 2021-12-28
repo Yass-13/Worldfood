@@ -25,7 +25,36 @@ background-repeat:no-repeat;
     background-color: #f6f6f6;
     border-radius: 60px;
     box-shadow: 25px 20px 7px rgba(0, 0, 0, 0.466);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+.vues{
+    width: 90%;
+    height: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: scroll;
+    justify-content: space-between;
+}
 
+.vues div{
+    max-height: 40%;
+    max-width: 45%;
+    margin: 15px;
+    
+}
+
+.vues div img {
+   max-height: 90%;
+    max-width: 100%;
+    display: flex;
+    margin: 5px;
+    border-radius: 12%;
+}
+
+.vues div a{
+    color:#e76731;
+}
 
