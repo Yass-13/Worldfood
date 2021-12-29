@@ -1,7 +1,24 @@
 *{margin-top: 0; padding: 0;}
 
-body{
+.bodymap{
+    background: url(./IMG/Background.jpg);
+    background-size: cover;
+    background-repeat:no-repeat;
+}
+#mapsection{
+    height: 90vh;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#mapsection img{
+    border-radius: 21%;
+}
+
+#mapsection h2{
+    margin-top: 20px;
+    width: 50%;
+    text-align: center;
 }

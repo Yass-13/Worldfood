@@ -18,15 +18,13 @@
             })
         })
 
-
-
     </script>
 </head>
 
 <body class="bodynav">
     <div id="leftside">
         <div id="logo">
-            <img src="./IMG/LOGO.png" alt="logo" class="logo">
+            <a href="./Index.php"><img src="./IMG/LOGO.png" alt="logo" class="logo"></a>
         </div>
         <div id="searchbar">
             <form method="GET">
@@ -37,7 +35,7 @@
     </div>
     <div class="sidebar">
       <ul>
-          <li><a href="#">RECETTES DU MONDE</a></li>
+          <li><a href="./carte.php">RECETTES DU MONDE</a></li>
           <li><a href="#">CONNEXION</a></li>
           <li><a href="#">INSCRIPTION</a></li>
       </ul>
