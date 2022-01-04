@@ -1,0 +1,57 @@
+*{margin: 0; padding: 0;}
+
+body{
+    background: url(./IMG/Background.jpg);
+    background-size: cover;
+    background-repeat:no-repeat; 
+    }
+
+.Formular{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    height: 800px;
+    margin-top: 50px;
+}
+
+.formularii{
+    background-color: #c4c4c4;
+    width: 60%;
+    height: 30%;
+    border-radius: 60px;
+    box-shadow: 25px 20px 7px rgba(0, 0, 0, 0.466);
+    display: flex;
+    justify-content: center;
+}
+
+.formularii input{
+    border: 3px solid #262626;
+    padding: 1% 14% 1% 1%;
+    height: 36px;
+    border-radius: 5px ;
+    outline: none;
+
+}
+
+.connect{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.span1{
+ display: flex;
+justify-content: space-evenly;
+}
+
+.span2{
+  display: flex;
+  justify-content: space-around;
+  padding-right: 9%;
+}
+
+.submit{
+    min-width:17%
+}

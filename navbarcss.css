@@ -112,7 +112,7 @@ ul li a {
 
 /* SEARCH BAR*/
 
-form{
+.SearchBar{
     display: flex;
     align-items: center;
     margin-top: 50px;

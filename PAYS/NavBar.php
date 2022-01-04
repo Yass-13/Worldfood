@@ -14,7 +14,7 @@
     <div class="sidebar">
       <ul>
           <li><a href="/worldfood/carte.php">RECETTES DU MONDE</a></li>
-          <li><a href="#">CONNEXION</a></li>
+          <li><a href="/worldfood/connexion.php">CONNEXION</a></li>
           <li><a href="#">INSCRIPTION</a></li>
       </ul>
       <button class="sidebarBtn"><span></span></button>
