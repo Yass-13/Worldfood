@@ -1,5 +1,27 @@
 *{margin: 0;padding: 0;}
 
 body{
-    background-color: coral;
+background: url(../IMG/Background.jpg);
+background-size: cover;
+background-repeat:no-repeat; 
+}
+
+.Acceuil{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    height: 1000px;
+    margin-top: 50px;
+}
+.recettes{
+    width: 80%;
+    height: 75%;
+    background-color: #f6f6f6;
+    border-radius: 60px;
+    box-shadow: 25px 20px 7px rgba(0, 0, 0, 0.466);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
