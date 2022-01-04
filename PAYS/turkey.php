@@ -25,6 +25,7 @@
 <?php include('./NavBar.php'); ?>
 <div class="Acceuil">
 <div class="recettes">
+<div class="flag"><img src="../IMG/turkey flag.png" alt="africa flag" class="Flag"></div>
 </div>
 </div>
 <?php include('./Footer.php'); ?>

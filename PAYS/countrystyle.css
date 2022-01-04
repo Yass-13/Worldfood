@@ -21,7 +21,17 @@ background-repeat:no-repeat;
     border-radius: 60px;
     box-shadow: 25px 20px 7px rgba(0, 0, 0, 0.466);
     display: flex;
+    align-items: flex-start;
+    
+}
+
+.Flag{
+    width: 30%;
+    margin-top: 40px;
+}
+
+.flag{
+    display: flex;
     justify-content: center;
-    align-items: center;
 
 }
