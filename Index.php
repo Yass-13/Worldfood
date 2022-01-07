@@ -1,3 +1,14 @@
+<?php
+session_start();
+ 
+$bdd = new PDO('mysql:host=127.0.0.1;dbname=espace_membre', 'root', '');
+
+$requser = $bdd->query('SELECT IDrecettes, titreRecettes, contenuRecette FROM recettes');
+
+while($recette = $requser->fetch()){
+    ?>
+    
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,8 +39,8 @@
 <div class="Acceuil">
     <div class="recettes">
     <div class="vues">
-    <div><img src="./IMG/pancake.jpg" alt="pancakes"><a href="#">Voir recette</a></div>
-    <div><img src="./IMG/lasagnes.jpg" alt="lasagnes"><a href="#">Voir recette</a></div>
+    <div><img src="./IMG/pancake.jpg" alt="pancakes"> <? echo $recette['titreRecettes']; ?><a href="./recette.php?IDrecettes=<?= $recette['IDrecettes']; ?>">voir recette</a></div>
+    <div><img src="./IMG/lasagnes.jpg" alt="lasagnes"> <? echo $recette['titreRecettes']; ?> <a href="./recette.php?IDrecettes=<?= $recette['IDrecettes']; ?>">Voir recette</a></div>
     <div><img src="./IMG/burger.jpg" alt="burger"><a href="#">Voir recette</a></div>
     <div><img src="./IMG/cake.jpg" alt="cake"><a href="#">Voir recette</a></div>
     <div><img src="./IMG/chicken.jpg" alt="chicken"><a href="#">Voir recette</a></div>
@@ -49,3 +60,6 @@
 </body>
 
 </html>
+<?php
+    }
+    ?>
