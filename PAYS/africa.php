@@ -1,3 +1,22 @@
+<?php
+session_start();
+ 
+$bdd = new PDO('mysql:host=127.0.0.1;dbname=espace_membre', 'root', '');
+
+$requser = $bdd->query('SELECT IDrecettes, titreRecettes, contenuRecette FROM recettes WHERE IDpays = 1');
+
+while($recette = $requser->fetch()){
+    echo $recette['titreRecettes']; ?><a href="../recette.php?idRecettes=<?= $recette['IDrecettes']; ?>">voir recette</a>
+    <?php
+    }
+    ?>
+
+
+
+
+
+
+
 <!DOCTYPE html>
 
 <head>
@@ -20,7 +39,7 @@
 
 <body>
     <section class="country">
-        <?php include('./NavBar.php'); ?>
+        
         <div class="Acceuil">
             <div class="recettes">
                 <div class="flag"><img src="../IMG/africa flag.png" alt="africa flag" class="Flag"></div>
