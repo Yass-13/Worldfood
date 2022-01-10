@@ -1,23 +1,12 @@
-<?php
-session_start();
- 
+<<?php
+
+
 $bdd = new PDO('mysql:host=127.0.0.1;dbname=espace_membre', 'root', '');
+$rec = $bdd->query('SELECT  titreRecettes, contenuRecette FROM recettes WHERE IDpays = 1');
 
-$requser = $bdd->query('SELECT IDrecettes, titreRecettes, contenuRecette FROM recettes WHERE IDpays = 1');
+?>
 
-while($recette = $requser->fetch()){
-    echo $recette['titreRecettes']; ?><a href="../recette.php?idRecettes=<?= $recette['IDrecettes']; ?>">voir recette</a>
-    <?php
-    }
-    ?>
-
-
-
-
-
-
-
-<!DOCTYPE html>
+    !DOCTYPE html>
 
 <head>
     <meta charset="UTF-8">
@@ -39,10 +28,18 @@ while($recette = $requser->fetch()){
 
 <body>
     <section class="country">
-        
+        <?php include('./NavBar.php'); ?>
         <div class="Acceuil">
             <div class="recettes">
                 <div class="flag"><img src="../IMG/africa flag.png" alt="africa flag" class="Flag"></div>
+                <?php
+                while ($bonjour = $rec->fetch()) {
+                    $recette = $bonjour['titreRecettes'];
+                ?>
+                    <div><?= $recette; ?></div>
+                <?php
+                }
+                ?>
             </div>
         </div>
         <?php include('./Footer.php'); ?>

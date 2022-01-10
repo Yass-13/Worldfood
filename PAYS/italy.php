@@ -1,3 +1,12 @@
+<?php
+
+
+$bdd = new PDO('mysql:host=127.0.0.1;dbname=espace_membre', 'root', '');
+$rec = $bdd->query('SELECT  titreRecettes, contenuRecette FROM recettes WHERE IDpays = 10');
+
+?>
+
+
 <!DOCTYPE html>
 
 <head>
@@ -25,9 +34,19 @@
 <?php include('./NavBar.php'); ?>
 <div class="Acceuil">
 <div class="recettes">
-<div class="flag"><img src="../IMG/italy flag.png" alt="africa flag" class="Flag"></div>
+<div class="flag"><img src="../IMG/italy flag.png" alt="africa flag" class="Flag"></div><br>
+<?php
+while($bonjour= $rec->fetch()){
+    $recette = $bonjour['titreRecettes'];
+?>
+    <div><?= $recette; ?></div>
+<?php
+}
+?>
+
 </div>
 </div>
 <?php include('./Footer.php'); ?>
 </section>
 </body>
+
