@@ -30,6 +30,10 @@ background-repeat:no-repeat;
     align-items: center;
 }
 
+.vues::-webkit-scrollbar {
+    display: none;
+}
+
 .vues{
     width: 90%;
     height: 90%;

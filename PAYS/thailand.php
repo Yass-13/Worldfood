@@ -2,7 +2,7 @@
 
 
 $bdd = new PDO('mysql:host=127.0.0.1;dbname=espace_membre', 'root', '');
-$rec = $bdd->query('SELECT  titreRecettes, contenuRecette FROM recettes WHERE IDpays = 18');
+$rec = $bdd->query('SELECT * FROM recettes WHERE IDpays = 18');
 
 ?>
 
@@ -35,8 +35,9 @@ $rec = $bdd->query('SELECT  titreRecettes, contenuRecette FROM recettes WHERE ID
                 <?php
                 while ($bonjour = $rec->fetch()) {
                     $recette = $bonjour['titreRecettes'];
+                    $img = $bonjour['image'];
                 ?>
-                    <div><?= $recette; ?></div>
+                    <div><a href="../recette.php?IDrecettes=<?= $bonjour['IDrecettes'];?>"><?= $recette; ?></a> <img src="../IMG/<?=$img?>" height="50px" width="50px" ></div>
                 <?php
                 }
                 ?>
