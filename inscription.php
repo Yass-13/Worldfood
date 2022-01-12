@@ -46,9 +46,9 @@ if(isset($_POST['forminscription'])) {
 <html>
    <head>
       <title>TUTO PHP</title>
-      <link rel="stylesheet" href="./inscriptionstyle.css">
-      <link rel="stylesheet" href="navbarcss.css">
-   <link rel="stylesheet" href="./footercss.css">
+      <link rel="stylesheet" href="./CSS/inscriptionstyle.css">
+      <link rel="stylesheet" href="./CSS/navbarcss.css">
+   <link rel="stylesheet" href="./CSS/footercss.css">
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
    <script type="text/javascript">
