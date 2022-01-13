@@ -47,7 +47,7 @@ if (isset($_GET['IDpays']) and $_GET['IDpays'] > 0) {
                         $img = $bonjour['image'];
                     ?>
                         <div class="articles">
-                            <a href="../recette.php?IDrecettes=<?= $bonjour['IDrecettes']; ?>"><?= $recette; ?></a><img src="./IMG/<?= $img ?>" class="x">
+                            <a href="./recette.php?IDrecettes=<?= $bonjour['IDrecettes']; ?>"><?= $recette; ?></a><img src="./IMG/<?= $img ?>" class="x">
                         </div>
                     <?php
                     }
