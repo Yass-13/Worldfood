@@ -52,26 +52,7 @@ if (isset($_SESSION['id'])) {
    </head>
 
    <body>
-      <div id="leftside">
-         <div id="logo">
-            <a href="./Index.php"><img src="./IMG/LOGO.png" alt="logo" class="logo"></a>
-         </div>
-         <div id="searchbar">
-            <form method="GET" class="SearchBar">
-               <input type="search" name="q" placeholder="Recherche..." class="searchspace" />
-               <button type="submit" class="searchButton"><i class="bi bi-search"></i></button>
-            </form>
-         </div>
-      </div>
-      <div class="sidebar">
-         <ul>
-            <li><a href="./carte.php">RECETTES DU MONDE</a></li>
-            <li><a href="./profil.php?id=<?= $user['id']?>">PAGE PROFIL</a></li>
-            <li><a href="./editionprofil.php">EDITER MON PROFIL</a></li>
-            <li><a href="./deconnexion.php">DECONNEXION</a></li>
-         </ul>
-         <button class="sidebarBtn"><span></span></button>
-      </div>
+      <?php include('./NavBar.php'); ?>
 
       <div class="formEdition">
          <h2>Edition de mon profil</h2>
@@ -92,15 +73,7 @@ if (isset($_SESSION['id'])) {
       </div>
 
 
-      <div class="footer">
-         <div class="social">
-            <i class="bi bi-facebook facebook"></i>
-            <i class="bi bi-twitter twitter"></i>
-            <i class="bi bi-pinterest pinterest"></i>
-            <i class="bi bi-instagram instagram"></i>
-         </div>
-         <p class="copyright">© Worldfood 2021 - Tous droits réservés</p>
-      </div>
+      <?php include('./Footer.php'); ?>
 
    </body>
 
