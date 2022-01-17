@@ -15,8 +15,9 @@ if (isset($_POST['formconnexion'])) {
          $_SESSION['id'] = $userinfo['id'];
          $_SESSION['pseudo'] = $userinfo['pseudo'];
          $_SESSION['mail'] = $userinfo['mail'];
+         $_SESSION['tipe'] = $userinfo['tipe'];
          header("Location: profil.php?id=" . $_SESSION['id']);
-         if ($userinfo['tipe'] == 'admin') {
+         if ($userinfo['tipe'] == 'admin' OR $userinfo['tipe'] == 'mod') {
             header("Location:membres.php");
          } else {
             header("Location: profil.php?id=" . $_SESSION['id']);

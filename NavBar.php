@@ -15,7 +15,12 @@
     if (isset($_SESSION['id']) and !empty($_SESSION['id'])) { ?>
         <ul>
             <li><a href="./carte.php">RECETTES DU MONDE</a></li>
+        <?php 
+            if($_SESSION['tipe'] == 'user'){?>
             <li><a href="./profil.php">PAGE PROFIL</a></li>
+            <?php }else{?>
+            <li><a href="./membres.php">PAGE PROFIL</a></li>
+            <?php } ?>
             <li><a href="./editionprofil.php">EDITER MON PROFIL</a></li>
             <li><a href="./deconnexion.php">DECONNEXION</a></li>
         </ul>
