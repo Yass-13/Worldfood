@@ -11,14 +11,13 @@ body{
     display: flex;
     align-items: center;
     flex-direction: column;
-    justify-content: center;
-    height: 1000px;
+    height: 200%;
     margin-top: 50px;
 }
 
 .recette{
     width: 80%;
-    height: 75%;
+    max-height: 80vh;
     background-color: #f6f6f6;
     border-radius: 60px;
     box-shadow: 25px 20px 7px rgba(0, 0, 0, 0.466);
@@ -26,10 +25,15 @@ body{
     align-items: center;
     flex-direction: column;
     overflow: scroll;
+    margin-top: 6%;
+    padding: 30px;
     
 }
 
 .recette::-webkit-scrollbar {
+    display: none;
+}
+.com::-webkit-scrollbar {
     display: none;
 }
 
@@ -43,6 +47,31 @@ body{
 }
 
 img{
+    width: 30%;
     height: 217%;
     border-radius: 10px;
+}
+
+.com{
+    width: 80%;
+    height: 100px;
+    background-color: #f6f6f6;
+    border-radius: 60px;
+    box-shadow: 25px 20px 7px rgba(0, 0, 0, 0.466);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    overflow: scroll;
+    margin: 25px 0;
+}
+
+.com div {
+    display: flex;
+    width: 85%;
+    flex-direction: column;
+
+}
+
+.com h3, h2{
+    font-size: 25px;
 }

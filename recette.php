@@ -9,6 +9,9 @@ if (isset($_GET['IDrecettes']) and $_GET['IDrecettes'] > 0) {
     $requser->execute(array($getid));
     $userinfo = $requser->fetch();
     $recette = $userinfo['contenuRecette'];
+    $com = $bdd->prepare('SELECT recettes.IDrecettes, commentaires.IDcommentaire, membres.pseudo, commentaires.contenu, commentaires.date FROM recettes INNER JOIN commentaires ON commentaires.IDrecette = recettes.IDrecettes INNER JOIN membres ON commentaires.IDmembre = membres.id WHERE IDrecettes = ?');
+    $com->execute(array($getid));
+
 ?>
 
     <!DOCTYPE html>
@@ -39,11 +42,30 @@ if (isset($_GET['IDrecettes']) and $_GET['IDrecettes'] > 0) {
         <div class="RECETTE">
             <div class="recette">
                 <h1><?php echo $userinfo['titreRecettes']; ?></h1>
-               <div class="ban"><img src="./IMG/<?= $userinfo['image'] ?>" > </div>
-               <p><?= nl2br($recette); ?></p>
-                
+                <div class="ban"><img src="./IMG/<?= $userinfo['image'] ?>"> </div>
+                <p><?= nl2br($recette); ?></p>
             </div>
+            <?php
+            while ($lescom = $com->fetch()) {
+                $auteur = $lescom['pseudo'];
+                $cont = $lescom['contenu'];
+                $date = $lescom['date'];
+            ?>
+                <div class="com">
+                    <div><h3><?= $auteur ?></h3> <h4><?= $date ?></h4></div>
+                    <p><?= $cont ?></p>
+                </div>
+            <?php
+            }
+            ?>
+                <div class="com">
+                    <h2>Ajouter un commentaire !!!</h2>
+                </div>
+
         </div>
+
+
+
         <?php include('./Footer.php'); ?>
     </body>
 
