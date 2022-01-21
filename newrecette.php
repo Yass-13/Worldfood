@@ -1,5 +1,17 @@
 <?php
 session_start();
+require 'uploadFile.php';
+
+$upload = new uploadFile();
+
+if(isset($_POST['submit']) && !empty($_POST['submit']))
+{
+    $tmp_name = $_FILES['fileToUpload']['tmp_name'];
+    $name = $_FILES['fileToUpload']['name'];
+    $upload->upload($tmp_name, $name);
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +22,7 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./CSS/recettestyle.css">
+    <link rel="stylesheet" href="./CSS/newrecettestyle.css">
     <link rel="stylesheet" href="./CSS/navbarcss.css">
     <link rel="stylesheet" href="./CSS/footercss.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
@@ -28,6 +40,13 @@ session_start();
 <body>
 <?php include('./NavBar.php'); ?>
 
+<h1>Ajoutez ici votre recette !</h1>
+
+<form action="" method="post" enctype="multipart/form-data" >
+  Select image to upload:
+  <input type="file" name="fileToUpload" id="fileToUpload">
+  <input type="submit" value="Upload Image" name="submit">
+</form>
 
 
 
@@ -36,3 +55,4 @@ session_start();
 
 </body>
 </html>
+
