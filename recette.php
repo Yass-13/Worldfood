@@ -2,6 +2,15 @@
 session_start();
 
 $bdd = new PDO('mysql:host=127.0.0.1;dbname=espace_membre;charset=utf8', 'root', '');
+   if (isset($_POST["postcom"]) && !empty($_POST['com'])) {
+        $comment = htmlspecialchars($_POST['com']);
+        $rece = intval($_GET['IDrecettes']);
+        $mem = intval($_SESSION['id']);
+        $date =  date("m.d.y");
+
+        $insertcom = $bdd->prepare("INSERT INTO commentaires(IDrecette, IDmembre, contenu,date) VALUES(?, ?, ?, ?)");
+        $insertcom->execute(array($rece, $mem, $comment, $date));
+    }
 
 if (isset($_GET['IDrecettes']) and $_GET['IDrecettes'] > 0) {
     $getid = intval($_GET['IDrecettes']);
@@ -12,6 +21,7 @@ if (isset($_GET['IDrecettes']) and $_GET['IDrecettes'] > 0) {
     $com = $bdd->prepare('SELECT recettes.IDrecettes, commentaires.IDcommentaire, membres.pseudo, commentaires.contenu, commentaires.date FROM recettes INNER JOIN commentaires ON commentaires.IDrecette = recettes.IDrecettes INNER JOIN membres ON commentaires.IDmembre = membres.id WHERE IDrecettes = ?');
     $com->execute(array($getid));
 
+ 
 ?>
 
     <!DOCTYPE html>
@@ -42,25 +52,54 @@ if (isset($_GET['IDrecettes']) and $_GET['IDrecettes'] > 0) {
         <div class="RECETTE">
             <div class="recette">
                 <h1><?php echo $userinfo['titreRecettes']; ?></h1>
-                <div class="ban"><img src="./IMG/<?= $userinfo['image'] ?>"> </div>
-                <p><?= nl2br($recette); ?></p>
+                <div class="ban">
+                    <p><?= nl2br($recette); ?></p><img src="./IMG/<?= $userinfo['image'] ?>">
+                </div>
             </div>
             <?php
-            while ($lescom = $com->fetch()) {
-                $auteur = $lescom['pseudo'];
-                $cont = $lescom['contenu'];
-                $date = $lescom['date'];
-            ?>
+
+            $lescom = $com->fetch();
+            if (isset($lescom['IDcommentaire'])) { ?>
+
                 <div class="com">
-                    <div><h3><?= $auteur ?></h3> <h4><?= $date ?></h4></div>
-                    <p><?= $cont ?></p>
+                    <?php
+                    while ($lescom = $com->fetch()) {
+                        $auteur = $lescom['pseudo'];
+                        $cont = $lescom['contenu'];
+                        $date = $lescom['date'];
+                    ?>
+
+                        <div>
+                            <h3><?= $auteur ?></h3>
+                            <h4><?= $date ?></h4>
+                        </div>
+                        <p><?= $cont ?></p>
+
+                    <?php
+                    }
+                    ?>
                 </div>
+            <?php } else { ?>
+
+                <div class="com" style="display: none;"></div>
+
             <?php
             }
             ?>
-                <div class="com">
-                    <h2>Ajouter un commentaire !!!</h2>
-                </div>
+
+
+
+
+
+            <div class="Addcom">
+
+                <h2>Ajouter un commentaire !!!</h2>
+                <form method="POST" class="comform">
+                    <textarea name="com"></textarea>
+                    <input type="submit" name="postcom" value="Envoyer !" />
+                </form>
+
+            </div>
 
         </div>
 

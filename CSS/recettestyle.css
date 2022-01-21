@@ -12,7 +12,7 @@ body{
     align-items: center;
     flex-direction: column;
     height: 200%;
-    margin-top: 50px;
+    margin-top: 85px;
 }
 
 .recette{
@@ -26,7 +26,8 @@ body{
     flex-direction: column;
     overflow: scroll;
     margin-top: 6%;
-    padding: 30px;
+    padding: 26px;
+    margin-bottom: 90px;
     
 }
 
@@ -40,10 +41,9 @@ body{
 
 .ban{
     height: 20%;
-    width: 100%;
     display: flex;
     justify-content: flex-end;
-    padding-right: 15%;
+    
 }
 
 img{
@@ -53,8 +53,8 @@ img{
 }
 
 .com{
-    width: 80%;
-    height: 100px;
+    width: 70%;
+    height: 350px;
     background-color: #f6f6f6;
     border-radius: 60px;
     box-shadow: 25px 20px 7px rgba(0, 0, 0, 0.466);
@@ -62,7 +62,7 @@ img{
     align-items: center;
     flex-direction: column;
     overflow: scroll;
-    margin: 25px 0;
+    margin: 80px 0;
 }
 
 .com div {
@@ -74,4 +74,42 @@ img{
 
 .com h3, h2{
     font-size: 25px;
+    margin-top: 10px;
+}
+
+.com p {
+    border-bottom: 2px solid #00000029;
+    width: 94%;
+    text-align: center;
+    font-size: 14px;
+    padding-bottom: 40px;
+}
+
+.Addcom{
+    width: 60%;
+    height: 130px;
+    background-color: #f6f6f6;
+    border-radius: 35px;
+    box-shadow: 25px 20px 7px rgba(0, 0, 0, 0.466);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    margin-bottom: 80px;
+    resize: none;
+}
+
+.comform{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 65%;
+    height: 70%;
+}
+
+.comform textarea{
+    width: 85%;
+    height: 65%;
+    resize: none;
 }

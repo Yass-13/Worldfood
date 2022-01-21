@@ -65,3 +65,30 @@ background-repeat:no-repeat;
     justify-content: center;
     width: 70%;
 }
+
+.css-button {
+	font-family: Courier New;
+	color: #ffffff;
+	font-size: 25px;
+	border-radius: 5px;
+	border: 0px #11c66c solid;
+	background: linear-gradient(180deg, #00ff80 5%, #11c66c 100%);
+	text-shadow: 1px 1px 1px #ffffff;
+	box-shadow: 0px 10px 14px -7px #616174;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+    margin: 30px;
+    text-decoration: none;
+}
+.css-button:hover {
+	background: linear-gradient(180deg, #11c66c 5%, #00ff80 100%);
+}
+.css-button-icon {
+	padding: 10px 10px;
+	border-right: 1px solid rgba(255, 255, 255, 0.16);
+	box-shadow: rgba(0, 0, 0, 0.14) -1px 0px 0px inset;
+}
+.css-button-text {
+	padding: 10px 18px;
+}
