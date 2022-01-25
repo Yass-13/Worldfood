@@ -2,8 +2,8 @@
 session_start();
 
 $bdd = new PDO('mysql:host=127.0.0.1;dbname=espace_membre;charset=utf8', 'root', '');
-   
-    
+
+
 if (isset($_GET['IDrecettes']) and $_GET['IDrecettes'] > 0) {
     $getid = intval($_GET['IDrecettes']);
     $requser = $bdd->prepare('SELECT * FROM recettes WHERE IDrecettes = ?');
@@ -11,103 +11,87 @@ if (isset($_GET['IDrecettes']) and $_GET['IDrecettes'] > 0) {
     $userinfo = $requser->fetch();
     $recette = $userinfo['contenuRecette'];
 }
-    if (isset($_POST["postcom"]) && !empty($_POST['com'])) {
-        $comment = htmlspecialchars($_POST['com']);
+
+if (isset($_POST['postcom'])) {
+    if (isset($_POST['com'])) {
         $rece = intval($_GET['IDrecettes']);
         $mem = intval($_SESSION['id']);
-        $date =  date("m.d.y");
+        $comment = htmlspecialchars($_POST['com']);
+        $date = date("d.m.y");
 
-        $insertcom = $bdd->prepare("INSERT INTO commentaires(IDrecette, IDmembre, contenu,date) VALUES(?, ?, ?, ?)");
-        $insertcom->execute(array($rece, $mem, $comment, $date));
+        $ins = $bdd->prepare("INSERT INTO commentaires(IDrecette, IDmembre, contenu, date) VALUES(?, ?, ?, ?)");
+        $ins->execute(array($rece, $mem, $comment, $date));
     }
+}
 
-    $com = $bdd->prepare('SELECT recettes.IDrecettes, commentaires.IDcommentaire, membres.pseudo, commentaires.contenu, commentaires.date FROM recettes INNER JOIN commentaires ON commentaires.IDrecette = recettes.IDrecettes INNER JOIN membres ON commentaires.IDmembre = membres.id WHERE IDrecettes = ?');
-    $com->execute(array($getid));
- 
+$com = $bdd->prepare('SELECT recettes.IDrecettes, commentaires.IDcommentaire, membres.pseudo, commentaires.contenu, commentaires.date FROM recettes INNER JOIN commentaires ON commentaires.IDrecette = recettes.IDrecettes INNER JOIN membres ON commentaires.IDmembre = membres.id WHERE IDrecettes = ?');
+$com->execute(array($getid));
 ?>
 
-    <!DOCTYPE html>
-    <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-        <link rel="stylesheet" href="./CSS/recettestyle.css">
-        <link rel="stylesheet" href="./CSS/navbarcss.css">
-        <link rel="stylesheet" href="./CSS/footercss.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $('.sidebarBtn').click(function() {
-                    $('.sidebar').toggleClass('active');
-                    $('.sidebarBtn').toggleClass('toggle');
-                })
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./CSS/recettestyle.css">
+    <link rel="stylesheet" href="./CSS/navbarcss.css">
+    <link rel="stylesheet" href="./CSS/footercss.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.sidebarBtn').click(function() {
+                $('.sidebar').toggleClass('active');
+                $('.sidebarBtn').toggleClass('toggle');
             })
-        </script>
-    </head>
+        })
+    </script>
+</head>
 
-    <body>
-        <?php include('./NavBar.php'); ?>
-        <div class="RECETTE">
-            <div class="recette">
-                <h1><?php echo $userinfo['titreRecettes']; ?></h1>
-                <div class="ban">
-                    <p><?= nl2br($recette); ?></p><img src="./IMG/<?= $userinfo['image'] ?>">
-                </div>
+<body>
+    <?php include('./NavBar.php'); ?>
+    <div class="RECETTE">
+        <div class="recette">
+            <h1><?php echo $userinfo['titreRecettes']; ?></h1>
+            <div class="ban">
+                <p><?= nl2br($recette); ?></p><img src="./IMG/<?= $userinfo['image'] ?>">
             </div>
-            <?php
+        </div>
 
-            $lescom = $com->fetch();
-            if (isset($lescom['IDcommentaire'])) { ?>
-
-                <div class="com">
-                    <?php
-                    while ($lescom = $com->fetch()) {
-                        $auteur = $lescom['pseudo'];
-                        $cont = $lescom['contenu'];
-                        $date = $lescom['date'];
-                    ?>
-
-                        <div>
-                            <h3><?= $auteur ?></h3>
-                            <h4><?= $date ?></h4>
-                        </div>
-                        <p><?= $cont ?></p>
-
-                    <?php
-                    }
-                    ?>
+        <div class="com">
+            <?php while ($c = $com->fetch()) { ?>
+                <div>
+                    <h3><?= $c['pseudo'] ?> </h3>
+                    <h4><?= $c['date'] ?></h4>
                 </div>
-            <?php } else { ?>
+                <p><?= $c['contenu'] ?></p>
+            <?php } ?>
+        </div>
 
-                <div class="com" style="display: none;"></div>
+        <div class="Addcom">
 
-            <?php
-            }
-            ?>
-
-
-
-
-
-            <div class="Addcom">
-
-                <h2>Ajouter un commentaire !!!</h2>
-                <form method="POST" class="comform">
+            <h2>Ajouter un commentaire !!!</h2>
+            <form method="POST" class="comform">
+                <?php if (isset($_SESSION['id']) and !empty($_SESSION['id'])) { ?>
                     <textarea name="com"></textarea>
-                    <input type="submit" name="postcom" value="Envoyer !" />
-                </form>
-
-            </div>
+                    <input type="submit" name="postcom" value="Envoyer !"  />
+                <?php } else {
+                     ?>
+                    <textarea disabled name="com"></textarea>
+                    <input type="submit" name="postcom" value="Envoyer !" style="display: none;" />
+                <?php } ?>
+            </form>
 
         </div>
 
+    </div>
 
 
-        <?php include('./Footer.php'); ?>
-    </body>
 
-    </html>
+    <?php include('./Footer.php'); ?>
+</body>
+
+</html>
