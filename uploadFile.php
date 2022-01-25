@@ -1,8 +1,13 @@
 <?php
         class uploadFile{
 
-            function upload($tmp_name,$name)
+            function upload(array $infoFiles)
             {
-                move_uploaded_file($tmp_name, 'IMGuploaded/'.date("m.d.y"). $name);
+                $infoFiles = current($infoFiles);
+
+                    move_uploaded_file($infoFiles['tmp_name'], 'IMG/' . $infoFiles['name']);
+                
+
             }
+
         }

@@ -42,7 +42,7 @@ body{
 .ban{
     height: 20%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     
 }
 

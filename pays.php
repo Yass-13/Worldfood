@@ -44,7 +44,7 @@ if (isset($_GET['IDpays']) and $_GET['IDpays'] > 0) {
                 <div class="flag"><img src="./IMG/<?= $userinfo['flag'] ?>" alt="usa flag" class="Flag"></div><br>
 
                
-                    <a class="css-button" href="./newrecette.php">
+                    <a class="css-button" href="./newrecette.php?IDpays=<?=$_GET['IDpays'];?>">
                         <span class="css-button-icon"><i class="fa fa-hand-peace-o" aria-hidden="true"></i></span>
                         <span class="css-button-text">Ajoutez Votre Recette !</span>
                     </a>
@@ -57,6 +57,7 @@ if (isset($_GET['IDpays']) and $_GET['IDpays'] > 0) {
                     ?>
                         <div class="articles">
                             <a href="./recette.php?IDrecettes=<?= $bonjour['IDrecettes']; ?>"><?= $recette; ?></a><img src="./IMG/<?= $img ?>" class="x">
+                            
                         </div>
                     <?php
                     }

@@ -5,6 +5,28 @@ body{
     text-align: center;
     }
 
+.formadd{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px black solid;
+    width: 29%;
+    height: 60%;
+    justify-content: space-around;
+}
 
 
 
+.FFF{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.formadd textarea{
+    width: 85%;
+    height: 55%;
+}

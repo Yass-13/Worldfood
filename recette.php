@@ -2,7 +2,16 @@
 session_start();
 
 $bdd = new PDO('mysql:host=127.0.0.1;dbname=espace_membre;charset=utf8', 'root', '');
-   if (isset($_POST["postcom"]) && !empty($_POST['com'])) {
+   
+    
+if (isset($_GET['IDrecettes']) and $_GET['IDrecettes'] > 0) {
+    $getid = intval($_GET['IDrecettes']);
+    $requser = $bdd->prepare('SELECT * FROM recettes WHERE IDrecettes = ?');
+    $requser->execute(array($getid));
+    $userinfo = $requser->fetch();
+    $recette = $userinfo['contenuRecette'];
+}
+    if (isset($_POST["postcom"]) && !empty($_POST['com'])) {
         $comment = htmlspecialchars($_POST['com']);
         $rece = intval($_GET['IDrecettes']);
         $mem = intval($_SESSION['id']);
@@ -12,15 +21,8 @@ $bdd = new PDO('mysql:host=127.0.0.1;dbname=espace_membre;charset=utf8', 'root',
         $insertcom->execute(array($rece, $mem, $comment, $date));
     }
 
-if (isset($_GET['IDrecettes']) and $_GET['IDrecettes'] > 0) {
-    $getid = intval($_GET['IDrecettes']);
-    $requser = $bdd->prepare('SELECT * FROM recettes WHERE IDrecettes = ?');
-    $requser->execute(array($getid));
-    $userinfo = $requser->fetch();
-    $recette = $userinfo['contenuRecette'];
     $com = $bdd->prepare('SELECT recettes.IDrecettes, commentaires.IDcommentaire, membres.pseudo, commentaires.contenu, commentaires.date FROM recettes INNER JOIN commentaires ON commentaires.IDrecette = recettes.IDrecettes INNER JOIN membres ON commentaires.IDmembre = membres.id WHERE IDrecettes = ?');
     $com->execute(array($getid));
-
  
 ?>
 
@@ -109,6 +111,3 @@ if (isset($_GET['IDrecettes']) and $_GET['IDrecettes'] > 0) {
     </body>
 
     </html>
-<?php
-}
-?>

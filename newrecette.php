@@ -1,17 +1,23 @@
 <?php
 session_start();
+$bdd = new PDO('mysql:host=127.0.0.1;dbname=espace_membre', 'root', '');
+
 require 'uploadFile.php';
 
 $upload = new uploadFile();
 
-if(isset($_POST['submit']) && !empty($_POST['submit']))
-{
-    $tmp_name = $_FILES['fileToUpload']['tmp_name'];
-    $name = $_FILES['fileToUpload']['name'];
-    $upload->upload($tmp_name, $name);
+
+
+if (isset($_POST['publier'])){
+    $pays = intval($_GET['IDpays']);
+    $titreRecett = htmlspecialchars($_POST['title']);
+    $contenuRecett = htmlspecialchars($_POST['contenu']);
+    $img = htmlspecialchars($_FILES['fileToUpload']['name']);
+    $upload->upload($_FILES);
+    $insertrecett = $bdd->prepare("INSERT INTO recettes(IDpays, titreRecettes, contenuRecette, image) VALUES(?, ?, ?, ?)");
+    $insertrecett->execute(array($pays, $titreRecett, $contenuRecett, $img));
+
 }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -38,21 +44,27 @@ if(isset($_POST['submit']) && !empty($_POST['submit']))
 </head>
 
 <body>
-<?php include('./NavBar.php'); ?>
+    <?php include('./NavBar.php'); ?>
 
-<h1>Ajoutez ici votre recette !</h1>
+   
+    <div class="FFF"> 
+        <h1>Ajoutez ici votre recette !</h1>
+        <form action="" method="POST" enctype="multipart/form-data" class="formadd">
+            Prenez une belle photo de vore plat:
+            <input type="file" name="fileToUpload" id="fileToUpload">
+            <h4>Mettez un titre</h4>
+            <input type="text" id="titre" name="title">
+            <h4>Expliquez nous comment faire votre plat</h4>
+            <textarea placeholder="mettez les ingredients et la préparation de votre recette..." name="contenu"></textarea>
+            <input type="submit" placeholder="Publier" name="publier">
 
-<form action="" method="post" enctype="multipart/form-data" >
-  Select image to upload:
-  <input type="file" name="fileToUpload" id="fileToUpload">
-  <input type="submit" value="Upload Image" name="submit">
-</form>
+        </form>
+    </div>
 
 
 
-
-<?php include('./Footer.php'); ?>
+    <?php include('./Footer.php'); ?>
 
 </body>
-</html>
 
+</html>
