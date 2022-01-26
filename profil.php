@@ -8,6 +8,10 @@ if (isset($_SESSION['id']) and $_SESSION['id'] > 0) {
    $requser = $bdd->prepare('SELECT * FROM membres WHERE id = ?');
    $requser->execute(array($getid));
    $userinfo = $requser->fetch();
+}
+
+$recettes = $bdd->prepare('SELECT * FROM recettes WHERE IDmembre = ?');
+$recettes->execute(array($getid));
 ?>
    <html>
 
@@ -36,6 +40,14 @@ if (isset($_SESSION['id']) and $_SESSION['id'] > 0) {
       <div class="perso">
          <div class="myrecipes">
             <h3>Mes Recettes</h3>
+            <?php 
+                while ($r = $recettes->fetch()) { ?>
+                   <p><?=$r['titreRecettes']?></p>
+                    <br>
+                    <img src="./IMG/<?= $r['image'] ?>" height="200px" width="200px">
+                <?php
+                }
+                ?>
          </div>
          <div class="mycomments">
             <h3>Mes Commentaires</h3>
@@ -52,6 +64,3 @@ if (isset($_SESSION['id']) and $_SESSION['id'] > 0) {
    </body>
 
    </html>
-<?php
-}
-?>

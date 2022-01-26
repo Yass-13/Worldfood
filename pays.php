@@ -50,10 +50,10 @@ if (isset($_GET['IDpays']) and $_GET['IDpays'] > 0) {
                         <span class="css-button-text">Ajoutez Votre Recette !</span>
                     </a>
                 <?php } else { ?>
-                    <!-- <a class="css-button" href="./newrecette.php?IDpays=<?=$_GET['IDpays'];?>">
+                    <a class="css-button" >
                         <span class="css-button-icon"><i class="fa fa-hand-peace-o" aria-hidden="true"></i></span>
-                        <span class="css-button-text">Ajoutez Votre Recette !</span>
-                    </a> -->
+                        <span class="css-button-text">Connectez-vous pour ajouter une recette</span>
+                    </a>
                 <?php
                 }
                 ?>

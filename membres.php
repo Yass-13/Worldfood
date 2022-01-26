@@ -2,8 +2,9 @@
 
 session_start();
 
-$bdd = new PDO('mysql:host=127.0.0.1;dbname=espace_membre', 'root', '');
+$bdd = new PDO('mysql:host=127.0.0.1;dbname=espace_membre;charset=utf8', 'root', '');
 $membres = $bdd->query('SELECT * FROM membres');
+$recettes = $bdd->query('SELECT * FROM recettes')
 ?>
 
 
@@ -36,12 +37,26 @@ $membres = $bdd->query('SELECT * FROM membres');
         <div class="perso"> 
             <div class="members">
                 <h3>Les Membres</h3>
+                <?php 
+                while ($m = $membres->fetch()) { ?>
+                   <p><?=$m['pseudo']?>   <a href=""></a> <br>
+                    <?= $m['mail']?></p>
+                    <br>
+                <?php
+                }
+                ?>
             </div>
-            <div class="mycomments">
-                <h3>Les Commentaires</h3>
-            </div>
+
             <div class="myrecipes">
                 <h3>Les Recettes Posté</h3>
+                <?php 
+                while ($r = $recettes->fetch()) { ?>
+                   <p><?=$r['titreRecettes']?></p>
+                    <br>
+                    <img src="./IMG/<?= $r['image'] ?>" height="200px" width="200px">
+                <?php
+                }
+                ?>
             </div>
             
            

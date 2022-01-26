@@ -10,12 +10,13 @@ $upload = new uploadFile();
 
 if (isset($_POST['publier'])){
     $pays = intval($_GET['IDpays']);
+    $membre = intval($_SESSION['id']);
     $titreRecett = htmlspecialchars($_POST['title']);
     $contenuRecett = htmlspecialchars($_POST['contenu']);
     $img = htmlspecialchars($_FILES['fileToUpload']['name']);
     $upload->upload($_FILES);
-    $insertrecett = $bdd->prepare("INSERT INTO recettes(IDpays, titreRecettes, contenuRecette, image) VALUES(?, ?, ?, ?)");
-    $insertrecett->execute(array($pays, $titreRecett, $contenuRecett, $img));
+    $insertrecett = $bdd->prepare("INSERT INTO recettes(IDpays, IDmembre, titreRecettes, contenuRecette, image) VALUES(?, ?, ?, ?, ?)");
+    $insertrecett->execute(array($pays, $membre, $titreRecett, $contenuRecett, $img));
 
 }
 ?>

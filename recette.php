@@ -80,6 +80,7 @@ $com->execute(array($getid));
                     <input type="submit" name="postcom" value="Envoyer !"  />
                 <?php } else {
                      ?>
+                     <p>Il faut être connecté pour pouvoir poster un commentaire</p>
                     <textarea disabled name="com"></textarea>
                     <input type="submit" name="postcom" value="Envoyer !" style="display: none;" />
                 <?php } ?>
