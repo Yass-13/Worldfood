@@ -14,9 +14,15 @@ if(isset($_GET['id']) AND !empty($_GET['id'])){
 
         header('Location: membres.php');
 
-    }else{
-        echo "aucun utilisateur trouvé";
     }
-}else{
-    echo "l'identifiant n'a pas été recuperé";
+}
+
+
+if (isset($_GET['IDcommentaire'])) {
+    $supprimer = intval($_GET['IDcommentaire']);
+    $delr = $bdd->prepare("DELETE FROM commentaires WHERE IDcommentaire = ?");
+    $delr->execute(array($supprimer)); 
+    header('Location:recette.php?IDrecettes=' . $_GET['IDrecettes']);
+    
+
 }

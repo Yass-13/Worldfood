@@ -24,8 +24,11 @@ if (isset($_POST['postcom'])) {
     }
 }
 
+
 $com = $bdd->prepare('SELECT recettes.IDrecettes, commentaires.IDcommentaire, membres.pseudo, commentaires.contenu, commentaires.date FROM recettes INNER JOIN commentaires ON commentaires.IDrecette = recettes.IDrecettes INNER JOIN membres ON commentaires.IDmembre = membres.id WHERE IDrecettes = ?');
-$com->execute(array($getid));
+$com->execute(array($_GET['IDrecettes']));
+
+
 ?>
 
 <!DOCTYPE html>
@@ -64,6 +67,13 @@ $com->execute(array($getid));
         <div class="com">
             <?php while ($c = $com->fetch()) { ?>
                 <div>
+                    <?php
+                    if (isset($_SESSION['tipe']) AND $_SESSION['tipe'] == 'admin') { 
+                    ?>
+                        <button><a href="bannir.php?IDcommentaire=<?= $c['IDcommentaire'] ?>&IDrecettes=<?= $c['IDrecettes'] ?>">X</a></button>
+                    <?php
+                    }
+                    ?>
                     <h3><?= $c['pseudo'] ?> </h3>
                     <h4><?= $c['date'] ?></h4>
                 </div>
@@ -77,10 +87,10 @@ $com->execute(array($getid));
             <form method="POST" class="comform">
                 <?php if (isset($_SESSION['id']) and !empty($_SESSION['id'])) { ?>
                     <textarea name="com"></textarea>
-                    <input type="submit" name="postcom" value="Envoyer !"  />
+                    <input type="submit" name="postcom" value="Envoyer !" />
                 <?php } else {
-                     ?>
-                     <p>Il faut être connecté pour pouvoir poster un commentaire</p>
+                ?>
+                    <p>Il faut être connecté pour pouvoir poster un commentaire</p>
                     <textarea disabled name="com"></textarea>
                     <input type="submit" name="postcom" value="Envoyer !" style="display: none;" />
                 <?php } ?>

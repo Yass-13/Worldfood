@@ -4,7 +4,26 @@ session_start();
 
 $bdd = new PDO('mysql:host=127.0.0.1;dbname=espace_membre;charset=utf8', 'root', '');
 $membres = $bdd->query('SELECT * FROM membres');
-$recettes = $bdd->query('SELECT * FROM recettes')
+$recettes = $bdd->query('SELECT * FROM recettes');
+
+if (isset($_GET['supprime'])) {
+    $supprime = intval($_GET['supprime']);
+    $del = $bdd->prepare("DELETE FROM membres WHERE id = ?");
+    $del->execute(array($supprime));
+    header('Location: membres.php');
+
+   
+
+}
+if (isset($_GET['supprimer'])) {
+    $supprimer = intval($_GET['supprimer']);
+    $delr = $bdd->prepare("DELETE FROM recettes WHERE IDrecettes = ?");
+    $delr->execute(array($supprimer)); 
+    header('Location: membres.php');
+    
+
+}
+
 ?>
 
 
@@ -13,6 +32,10 @@ $recettes = $bdd->query('SELECT * FROM recettes')
 
 <head>
     <title>TUTO PHP</title>
+
+
+
+      
     <meta charset="utf-8">
     <link rel="stylesheet" href="./CSS/profilcss.css">
     <link rel="stylesheet" href="./CSS/navbarcss.css">
@@ -34,13 +57,14 @@ $recettes = $bdd->query('SELECT * FROM recettes')
     <h2>Bonjour <?php echo $_SESSION['pseudo']; ?> ! </h2>
 
     <?php if ($_SESSION['tipe'] == 'admin') { ?>
-        <div class="perso"> 
+        <div class="perso">
             <div class="members">
                 <h3>Les Membres</h3>
-                <?php 
+                <?php
                 while ($m = $membres->fetch()) { ?>
-                   <p><?=$m['pseudo']?>   <a href=""></a> <br>
-                    <?= $m['mail']?></p>
+                    <button><a href="membres.php?supprime=<?= $m['id'] ?>">X</a></button>
+                        <?= $m['pseudo'] ?> <br>
+                        <?= $m['mail'] ?></p>
                     <br>
                 <?php
                 }
@@ -49,25 +73,32 @@ $recettes = $bdd->query('SELECT * FROM recettes')
 
             <div class="myrecipes">
                 <h3>Les Recettes Posté</h3>
-                <?php 
+                <?php
                 while ($r = $recettes->fetch()) { ?>
-                   <p><?=$r['titreRecettes']?></p>
+                    <a href="./recette.php?IDrecettes=<?= $r['IDrecettes'] ?>"><?= $r['titreRecettes'] ?></a>
+                    <button><a href="membres.php?supprimer=<?= $r['IDrecettes']?>">X</a></button>
                     <br>
                     <img src="./IMG/<?= $r['image'] ?>" height="200px" width="200px">
                 <?php
                 }
                 ?>
             </div>
-            
-           
+
         </div>
+
+
+
+
+
+
+
+
+
     <?php } else { ?>
         <div class="perso">
             <div class="myrecipes">
-                <h3>Gestion des Recettes</h3>
-            </div>
-            <div class="mycomments">
-                <h3>Gestion des Commentaires</h3>
+                <h3>Gestion des Recettes et Commentaires</h3>
+                
             </div>
         </div>
     <?php } ?>
