@@ -86,19 +86,18 @@ if (isset($_GET['supprimer'])) {
 
         </div>
 
-
-
-
-
-
-
-
-
     <?php } else { ?>
         <div class="perso">
             <div class="myrecipes">
                 <h3>Gestion des Recettes et Commentaires</h3>
-                
+                <?php
+                while ($r = $recettes->fetch()) { ?>
+                    <a href="./recette.php?IDrecettes=<?= $r['IDrecettes'] ?>"><?= $r['titreRecettes'] ?></a>
+                    <br>
+                    <img src="./IMG/<?= $r['image'] ?>" height="200px" width="200px">
+                <?php
+                }
+                ?>
             </div>
         </div>
     <?php } ?>
