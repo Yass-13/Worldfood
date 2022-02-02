@@ -58,6 +58,13 @@ $com->execute(array($_GET['IDrecettes']));
     <?php include('./NavBar.php'); ?>
     <div class="RECETTE">
         <div class="recette">
+            <?php
+            if (isset($_SESSION['tipe']) and $_SESSION['tipe'] == 'mod') {
+            ?>
+                <button><a href="modifier.php?IDrecettes=<?= $userinfo['IDrecettes'] ?>">MODIFIER RECETTE</a></button>
+            <?php
+            }
+            ?>
             <h1><?php echo $userinfo['titreRecettes']; ?></h1>
             <div class="ban">
                 <p><?= nl2br($recette); ?></p><img src="./IMG/<?= $userinfo['image'] ?>">
@@ -68,7 +75,7 @@ $com->execute(array($_GET['IDrecettes']));
             <?php while ($c = $com->fetch()) { ?>
                 <div>
                     <?php
-                    if (isset($_SESSION['tipe']) AND $_SESSION['tipe'] == 'admin') { 
+                    if (isset($_SESSION['tipe']) and $_SESSION['tipe'] == 'admin' or $_SESSION['tipe'] == 'mod') {
                     ?>
                         <button><a href="bannir.php?IDcommentaire=<?= $c['IDcommentaire'] ?>&IDrecettes=<?= $c['IDrecettes'] ?>">X</a></button>
                     <?php

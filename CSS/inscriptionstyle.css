@@ -43,6 +43,12 @@ body{
         width: 100%;
     }
 
+    .formEdition textarea{
+        width: 65%;
+        height: 65%;
+        resize: none;
+    }
+
     .edition{
         background: url(../IMG/planche.jpg);
         width: 30%;
