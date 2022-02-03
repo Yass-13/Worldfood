@@ -74,7 +74,7 @@ $com->execute(array($_GET['IDrecettes']));
             <?php while ($c = $com->fetch()) { ?>
                 <div>
                     <?php
-                    if (isset($_SESSION['tipe']) and $_SESSION['tipe'] == 'admin' or $_SESSION['tipe'] == 'mod') {
+                    if (isset($_SESSION['tipe']) AND $_SESSION['tipe'] == 'admin' || $_SESSION['tipe'] == 'mod') {
                       
                     ?>
                         <button><a href="bannir.php?IDcommentaire=<?= $c['IDcommentaire'] ?>&IDrecettes=<?= $c['IDrecettes'] ?>">X</a></button>
