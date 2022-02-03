@@ -28,7 +28,6 @@ if (isset($_POST['postcom'])) {
 $com = $bdd->prepare('SELECT recettes.IDrecettes, commentaires.IDcommentaire, membres.pseudo, commentaires.contenu, commentaires.date FROM recettes INNER JOIN commentaires ON commentaires.IDrecette = recettes.IDrecettes INNER JOIN membres ON commentaires.IDmembre = membres.id WHERE IDrecettes = ?');
 $com->execute(array($_GET['IDrecettes']));
 
-
 ?>
 
 <!DOCTYPE html>
@@ -76,6 +75,7 @@ $com->execute(array($_GET['IDrecettes']));
                 <div>
                     <?php
                     if (isset($_SESSION['tipe']) and $_SESSION['tipe'] == 'admin' or $_SESSION['tipe'] == 'mod') {
+                      
                     ?>
                         <button><a href="bannir.php?IDcommentaire=<?= $c['IDcommentaire'] ?>&IDrecettes=<?= $c['IDrecettes'] ?>">X</a></button>
                     <?php

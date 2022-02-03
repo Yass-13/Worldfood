@@ -16,7 +16,7 @@ if(isset($_GET['q']) AND !empty($_GET['q'])) {
 
 <form method="GET">
     <input type="search" name="q" placeholder="Recherche..." />
-    <input type="submit" value="Valier" />
+    <input type="submit" value="Valider" />
 </form>
 
 

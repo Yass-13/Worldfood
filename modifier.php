@@ -67,7 +67,7 @@ if (isset($_GET['IDrecettes'])) {
          <input type="text" name="newtitre" placeholder="titre" value="<?php echo $rekt['titreRecettes']; ?>" /><br /><br />
          <label>Contenu recette :</label>
          <textarea name="newcontenu" placeholder="contenu" ><?php echo $rekt['contenuRecette']; ?></textarea><br /><br />
-         <input type="submit" value="Mettre à jour mon profil !" />
+         <input type="submit" value="Mettre à jour la Recette !" />
       </form>
    </div>
 

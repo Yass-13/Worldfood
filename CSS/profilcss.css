@@ -18,6 +18,7 @@ body{
         border-bottom: solid black 2px;
         padding: 20px;
         font-size: 25px;
+        margin-bottom: 15px;
     }
 
     .perso{
@@ -76,3 +77,12 @@ body{
     .members::-webkit-scrollbar {
         display: none;
     }
+
+.mescom{
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    margin: 6px;
+    border-bottom: 1px solid black;
+    padding: 6px;
+}
