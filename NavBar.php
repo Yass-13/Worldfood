@@ -17,9 +17,9 @@ if (isset($_GET['q']) and !empty($_GET['q'])) {
         <a href="./Index.php"><img src="./IMG/LOGO.png" alt="logo" class="logo"></a>
     </div>
     <div id="searchbar">
-        <form method="GET" class="SearchBar">
+        <form method="GET" action="resultsearch.php" class="SearchBar">
             <input type="search" name="q" placeholder="Recherche..." class="searchspace" />
-            <button type="submit" class="searchButton"><a href=""><i class="bi bi-search"></i></a></button>
+            <button type="submit" class="searchButton"><i class="bi bi-search"></i></button>
         </form>
     </div>
 </div>
@@ -52,10 +52,3 @@ if (isset($_GET['q']) and !empty($_GET['q'])) {
 </div>
 
 
-
-<?php
-if (isset($_GET['q'])) {
-    while ($a = $searchrec->fetch()) { ?>
-        <p><?= $a['titreRecettes'] ?></p>
-<?php }
-} ?>

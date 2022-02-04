@@ -12,7 +12,7 @@ if (isset($_SESSION['id']) and $_SESSION['id'] > 0) {
 
 $recettes = $bdd->prepare('SELECT * FROM recettes WHERE IDmembre = ?');
 $recettes->execute(array($getid));
-$com = $bdd->prepare('SELECT recettes.titreRecettes, commentaires.IDmembre, commentaires.contenu, commentaires.date FROM recettes INNER JOIN commentaires ON recettes.IDrecettes = commentaires.IDrecette
+$com = $bdd->prepare('SELECT recettes.IDrecettes, recettes.titreRecettes, commentaires.IDmembre, commentaires.contenu, commentaires.date FROM recettes INNER JOIN commentaires ON recettes.IDrecettes = commentaires.IDrecette
  WHERE commentaires.IDmembre = ?');
 $com->execute(array($getid));
 
@@ -59,7 +59,7 @@ $com->execute(array($getid));
          while ($c = $com->fetch()) { ?>
 
             <div class="mescom">
-               <span> <a href="./recette.php?IDrecettes=<?= $r['IDrecettes'] ?>"><?= $r['titreRecettes'] ?></a></span>
+               <span> <a href="./recette.php?IDrecettes=<?= $c['IDrecettes'] ?>"><?= $c['titreRecettes'] ?></a></span>
                <span><?= $c['contenu'] ?></span>
                <span><?= $c['date'] ?>
             </div></span>
