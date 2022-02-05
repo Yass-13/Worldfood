@@ -2,7 +2,8 @@
 
 session_start();
 
-$bdd = new PDO('mysql:host=127.0.0.1;dbname=espace_membre;charset=utf8', 'root', '');
+
+include 'db.php';
 $membres = $bdd->query('SELECT * FROM membres');
 $recettes = $bdd->query('SELECT * FROM recettes');
 
@@ -63,6 +64,7 @@ if (isset($_GET['supprimer'])) {
                 <?php
                 while ($m = $membres->fetch()) { ?>
                     <button><a href="membres.php?supprime=<?= $m['id'] ?>">X</a></button>
+                    <button><a href="modifier.php?id=<?= $m['id'] ?>">Promouvoir a Moderateur </a></button>
                         <?= $m['pseudo'] ?> <br>
                         <?= $m['mail'] ?></p>
                     <br>

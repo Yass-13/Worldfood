@@ -1,7 +1,8 @@
 <?php
 session_start();
 
-$bdd = new PDO('mysql:host=127.0.0.1;dbname=espace_membre;charset=utf8', 'root', '');
+
+include 'db.php';
 
 if (isset($_GET['id']) and !empty($_GET['id'])) {
     $getid = $_GET['id'];
@@ -9,8 +10,9 @@ if (isset($_GET['id']) and !empty($_GET['id'])) {
     $membres->execute(array($getid));
     if ($membres->rowCount() > 0) {
 
-        $promouvoir = $bdd->prepare('UPDATE membres SET tipe = "admin" WHERE id = ?');
+        $promouvoir = $bdd->prepare('UPDATE membres SET tipe = "mod" WHERE id = ?');
         $promouvoir->execute(array($getid));
+        header('Location: membres.php');
     }
 }
 
