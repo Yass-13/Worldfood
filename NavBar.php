@@ -5,7 +5,7 @@ $searchrec = $bdd->query('SELECT titreRecettes FROM recettes ORDER BY titreRecet
 
 if (isset($_GET['q']) and !empty($_GET['q'])) {
     $q = htmlspecialchars($_GET['q']);
-    $searchrec = $bdd->query('SELECT titreRecettes FROM recettes WHERE titreRecettes LIKE "%' . $q . '%" ORDER BY titreRecettes DESC');
+    $searchrec = $bdd->query('SELECT * FROM recettes WHERE titreRecettes LIKE "%' . $q . '%" ORDER BY titreRecettes DESC');
 }
 ?>
 

@@ -47,10 +47,11 @@ if (isset($_GET['q']) and !empty($_GET['q'])) {
 
         <div class="recettes">
             <div class="vues">
-                <?php while ($a = $searchrec->fetch()) {var_dump($a) ?>
-                 
+                <div>
+                <?php while ($a = $searchrec->fetch()) { ?>
+                    <img src="./IMG/<?=$a['image']?>"><a href="./recette.php?IDrecettes=<?=$a['IDrecettes']?>"><?=$a['titreRecettes']?></a>
                 <?php } ?>
-
+                </div>
             </div>
         </div>
 
