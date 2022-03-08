@@ -87,7 +87,7 @@ img{
 
 .Addcom{
     width: 60%;
-    height: 130px;
+    height: 220px;
     background-color: #f6f6f6;
     border-radius: 35px;
     box-shadow: 25px 20px 7px rgba(0, 0, 0, 0.466);
@@ -96,6 +96,7 @@ img{
     justify-content: space-around;
     flex-direction: column;
     margin-bottom: 80px;
+    padding-bottom: 15px;
     resize: none;
 }
 

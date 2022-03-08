@@ -1,102 +1,98 @@
 <?php
 
-session_start();
-
-
-include 'db.php';
-$membres = $bdd->query('SELECT * FROM membres');
-$recettes = $bdd->query('SELECT * FROM recettes');
-
-if (isset($_GET['supprime'])) {
-    $supprime = intval($_GET['supprime']);
-    $del = $bdd->prepare("DELETE FROM membres WHERE id = ?");
-    $del->execute(array($supprime));
-    header('Location: membres.php');
-
-   
-
-}
-if (isset($_GET['supprimer'])) {
-    $supprimer = intval($_GET['supprimer']);
-    $delr = $bdd->prepare("DELETE FROM recettes WHERE IDrecettes = ?");
-    $delr->execute(array($supprimer)); 
-    header('Location: membres.php');
-    
-
-}
-
+include 'Controller.php';
+//PAGE PROFIL ADMINISTRATEUR ET MODERATEUR
 ?>
 
-
-
 <html>
+<?php $title = 'Votre Profil' ?>
+<?php $css = './CSS/profilcss.css' ?>
 
-<head>
-    <title>TUTO PHP</title>
-
-
-
-      
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="./CSS/profilcss.css">
-    <link rel="stylesheet" href="./CSS/navbarcss.css">
-    <link rel="stylesheet" href="./CSS/footercss.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('.sidebarBtn').click(function() {
-                $('.sidebar').toggleClass('active');
-                $('.sidebarBtn').toggleClass('toggle');
-            })
-        })
-    </script>
-</head>
+<?php ob_start(); ?>
 
 <body>
     <?php include('./Navbar.php'); ?>
+    
     <h2>Bonjour <?php echo $_SESSION['pseudo']; ?> ! </h2>
-
+<!-- ICI ON VERIFIE SI L'UTILISATEUR EST UN ADMINISTRATEUR ET ON AFFICHE SA PAGE D'ADMINISTRATION  -->
     <?php if ($_SESSION['tipe'] == 'admin') { ?>
         <div class="perso">
+<!-- ON AFFICHE LES MEMBRES INSCRITS AVEC LA POSSIBILITé DE SUPPRIMER ET DE GERER LES MODERATEURS ET LES UTILISATEUR -->
             <div class="members">
                 <h3>Les Membres</h3>
-                <?php
-                while ($m = $membres->fetch()) { ?>
-                    <button><a href="membres.php?supprime=<?= $m['id'] ?>">X</a></button>
-                    <button><a href="modifier.php?id=<?= $m['id'] ?>">Promouvoir a Moderateur </a></button>
-                        <?= $m['pseudo'] ?> <br>
-                        <?= $m['mail'] ?></p>
-                    <br>
-                <?php
-                }
-                ?>
+                <br>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Pseudo</th>
+                            <th scope="col">Statut</th>
+                            <th scope="col">Adresse Mail</th>
+                            <th scope="col">Supprimer</th>
+                            <th scope="col">Gestion</th>
+                        </tr>
+                    </thead>
+                    <?php
+                    while ($m = $displayUsers->fetch()) { ?>
+                        <tbody>
+                            <tr>
+                                <th scope="row"><?= $m['pseudo']  ?></th>
+                                <td><?= $m['tipe']  ?></td>
+                                <td><?= $m['mail'] ?></td>
+                                <td><a href="membres.php?supprime=<?= $m['id'] ?>" class="btn btn-danger">Supprimer</a></td>
+                                <td>
+                                    <?php if ($m['tipe'] == 'user') { ?>
+                                        <a href="modifier.php?upgrade=<?= $m['id'] ?>" class="btn btn-success" >Promouvoir a Moderateur </a>
+                                    <?php } ?>
+                                    
+                                    <?php if ($m['tipe'] == 'mod') { ?>
+                                        <a href="modifier.php?demote=<?= $m['id'] ?> " class="btn btn-info">Retrograder </a>
+                                    <?php } ?>
+                                </td>
+                            </tr>
+                        </tbody>
+                    <?php
+                    }
+                    ?>
+                </table>                
             </div>
-
+<!-- ICI ON AFFICHé LES RECETTES POSTé SUR LE SITE, ON POURRA ACCEDER A LA PAGE POUR VOIR LES DETAILS DE LA RECETTE ET AUSSI
+     SUPPRIMER LES COMMENTAIRES SOUS LA RECETTE -->
             <div class="myrecipes">
                 <h3>Les Recettes Posté</h3>
                 <?php
-                while ($r = $recettes->fetch()) { ?>
-                    <a href="./recette.php?IDrecettes=<?= $r['IDrecettes'] ?>"><?= $r['titreRecettes'] ?></a>
-                    <button><a href="membres.php?supprimer=<?= $r['IDrecettes']?>">X</a></button>
-                    <br>
-                    <img src="./IMG/<?= $r['image'] ?>" height="200px" width="200px">
+                while ($r = $displayRecipes->fetch()) { ?>
+
+                    <div class="card" style="width: 18rem;">
+                        <img src="./IMG/<?= $r['image'] ?>" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= $r['titreRecettes'] ?></h5>
+                            <a href="./recette.php?IDrecettes=<?= $r['IDrecettes'] ?>" class="btn btn-primary">Voir Recette</a>
+                            <a href="membres.php?supprimer=<?= $r['IDrecettes'] ?>" class="btn btn-danger">Supprimer</a>
+                        </div>
+                    </div>
                 <?php
                 }
                 ?>
             </div>
 
         </div>
-
+<!-- ICI SI A LA CONNEXION L'UTILISATEUR N'EST NI UN ADMINSTRATEUR NI UN UTILSATEUR ON AFFICHE L'INTERFACE DU MODERATEUR -->
     <?php } else { ?>
         <div class="perso">
             <div class="myrecipes">
+            <!-- LE MODERATEUR POURRA AVOIR ACCES A TTE LES RECETTES DU SITE IL POURRA MODIFIER LE CONTENU DES RECETTES
+             ET GERER L'ESPACE COMMENTAIRE -->
                 <h3>Gestion des Recettes et Commentaires</h3>
                 <?php
-                while ($r = $recettes->fetch()) { ?>
-                    <a href="./recette.php?IDrecettes=<?= $r['IDrecettes'] ?>"><?= $r['titreRecettes'] ?></a>
-                    <br>
-                    <img src="./IMG/<?= $r['image'] ?>" height="200px" width="200px">
+                while ($r = $displayRecipes->fetch()) { ?>
+
+                    <div class="card" style="width: 18rem;">
+                        <img src="./IMG/<?= $r['image'] ?>" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= $r['titreRecettes'] ?></h5>
+                            <a href="./recette.php?IDrecettes=<?= $r['IDrecettes'] ?>" class="btn btn-primary">Voir Recette</a>
+                        </div>
+                    </div>
                 <?php
                 }
                 ?>
@@ -105,5 +101,9 @@ if (isset($_GET['supprimer'])) {
     <?php } ?>
     <?php include('./Footer.php'); ?>
 </body>
+
+<?php $content = ob_get_clean(); ?>
+
+<?php require('template.php'); ?>
 
 </html>

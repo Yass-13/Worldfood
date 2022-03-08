@@ -1,84 +1,90 @@
-*{margin: 0;padding: 0;}
+* {
+    margin: 0;
+    padding: 0;
+}
 
-body{
+body {
     background: url(../IMG/Background.jpg);
     background-size: cover;
-    background-repeat:no-repeat; 
-    }
+    background-repeat: no-repeat;
+}
 
 
-    h2{
-        text-align:center;
-        margin-top: 15%;
-        font-size: 50px;
-    }
+h2 {
+    text-align: center;
+    padding: 110px;
+    font-size: 50px;
+}
 
-    h3{
-        min-width: 96%;
-        border-bottom: solid black 2px;
-        padding: 20px;
-        font-size: 25px;
-        margin-bottom: 15px;
-    }
+h3 {
+    min-width: 96%;
+    border-bottom: solid black 2px;
+    padding: 20px;
+    font-size: 25px;
+    margin-bottom: 15px;
+}
 
-    .perso{
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        justify-content:space-evenly;
-        height: 1000px;
-        margin-top: 50px;
+.perso {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 1000px;
+    margin-top: -80px;
 
-    }
+}
 
-    .myrecipes{
-        width: 80%;
-        height: 32%;
-        background-color: #f6f6f6;
-        border-radius: 60px;
-        box-shadow: 25px 20px 7px rgba(0, 0, 0, 0.466);
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        overflow: scroll;
-        margin-bottom: 20px;
-    }
+.myrecipes {
+    width: 80%;
+    height: 45%;
+    background-color: #f6f6f6;
+    border-radius: 60px;
+    box-shadow: 25px 20px 7px rgba(0, 0, 0, 0.466);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow: scroll;
+    margin-bottom: 20px;
+}
 
-    .mycomments{
-        width: 80%;
-        height: 32%;
-        background-color: #f6f6f6;
-        border-radius: 60px;
-        box-shadow: 25px 20px 7px rgba(0, 0, 0, 0.466);
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        overflow: scroll;
-    }
-    .members{
-        width: 80%;
-        height: 32%;
-        background-color: #f6f6f6;
-        border-radius: 60px;
-        box-shadow: 25px 20px 7px rgba(0, 0, 0, 0.466);
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        overflow: scroll;
-    }
+.mycomments {
+    width: 80%;
+    height: 32%;
+    background-color: #f6f6f6;
+    border-radius: 60px;
+    box-shadow: 25px 20px 7px rgba(0, 0, 0, 0.466);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    overflow: scroll;
+}
 
-    .myrecipes::-webkit-scrollbar {
-        display: none;
-    }
+.members {
+    width: 80%;
+    height: 32%;
+    background-color: #f6f6f6;
+    border-radius: 60px;
+    box-shadow: 25px 20px 7px rgba(0, 0, 0, 0.466);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    overflow: scroll;
+    padding: 3px 50px;
+}
 
-    .mycomments::-webkit-scrollbar {
-        display: none;
-    }
-    .members::-webkit-scrollbar {
-        display: none;
-    }
+.myrecipes::-webkit-scrollbar {
+    display: none;
+}
 
-.mescom{
+.mycomments::-webkit-scrollbar {
+    display: none;
+}
+
+.members::-webkit-scrollbar {
+    display: none;
+}
+
+.mescom {
     width: 60%;
     display: flex;
     justify-content: space-between;

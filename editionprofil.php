@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+//PAGE PERMETTANT A L'UTILISATEUR DE MODIFIER SON PROFIL
 
 include 'db.php';
 
@@ -8,18 +9,21 @@ if (isset($_SESSION['id'])) {
    $requser = $bdd->prepare("SELECT * FROM membres WHERE id = ?");
    $requser->execute(array($_SESSION['id']));
    $user = $requser->fetch();
+//MODIFICATION DU PSEUDO
    if (isset($_POST['newpseudo']) and !empty($_POST['newpseudo']) and $_POST['newpseudo'] != $user['pseudo']) {
       $newpseudo = htmlspecialchars($_POST['newpseudo']);
       $insertpseudo = $bdd->prepare("UPDATE membres SET pseudo = ? WHERE id = ?");
       $insertpseudo->execute(array($newpseudo, $_SESSION['id']));
       header('Location: profil.php?id=' . $_SESSION['id']);
    }
+//MODIFICATION DU MAIL
    if (isset($_POST['newmail']) and !empty($_POST['newmail']) and $_POST['newmail'] != $user['mail']) {
       $newmail = htmlspecialchars($_POST['newmail']);
       $insertmail = $bdd->prepare("UPDATE membres SET mail = ? WHERE id = ?");
       $insertmail->execute(array($newmail, $_SESSION['id']));
       header('Location: profil.php?id=' . $_SESSION['id']);
    }
+//MODIFICATION DU MOT DE PASSE
    if (isset($_POST['newmdp1']) and !empty($_POST['newmdp1']) and isset($_POST['newmdp2']) and !empty($_POST['newmdp2'])) {
       $mdp1 = sha1($_POST['newmdp1']);
       $mdp2 = sha1($_POST['newmdp2']);
@@ -32,26 +36,11 @@ if (isset($_SESSION['id'])) {
       }
    }
 ?>
-   <html>
 
-   <head>
-      <title>TUTO PHP</title>
-      <meta charset="utf-8">
-      <link rel="stylesheet" href="./CSS/inscriptionstyle.css">
-      <link rel="stylesheet" href="./CSS/navbarcss.css">
-      <link rel="stylesheet" href="./CSS/footercss.css">
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-      <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-      <script type="text/javascript">
-         $(document).ready(function() {
-            $('.sidebarBtn').click(function() {
-               $('.sidebar').toggleClass('active');
-               $('.sidebarBtn').toggleClass('toggle');
-            })
-         })
-      </script>
-   </head>
+<?php $title = 'Edition de profil' ?>
+<?php $css = './CSS/inscriptionstyle.css' ?>
 
+<?php ob_start(); ?>
    <body>
       <?php include('./NavBar.php'); ?>
 
@@ -84,3 +73,7 @@ if (isset($_SESSION['id'])) {
    header("Location: connexion.php");
 }
 ?>
+
+<?php $content = ob_get_clean(); ?>
+
+<?php require('template.php'); ?>

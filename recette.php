@@ -1,83 +1,47 @@
 <?php
-session_start();
 
-include 'db.php';
-
-
-if (isset($_GET['IDrecettes']) and $_GET['IDrecettes'] > 0) {
-    $getid = intval($_GET['IDrecettes']);
-    $requser = $bdd->prepare('SELECT * FROM recettes WHERE IDrecettes = ?');
-    $requser->execute(array($getid));
-    $userinfo = $requser->fetch();
-    $recette = $userinfo['contenuRecette'];
-}
-
-if (isset($_POST['postcom'])) {
-    if (isset($_POST['com'])) {
-        $rece = intval($_GET['IDrecettes']);
-        $mem = intval($_SESSION['id']);
-        $comment = htmlspecialchars($_POST['com']);
-        $date = date("d.m.y");
-
-        $ins = $bdd->prepare("INSERT INTO commentaires(IDrecette, IDmembre, contenu, date) VALUES(?, ?, ?, ?)");
-        $ins->execute(array($rece, $mem, $comment, $date));
-    }
-}
-
-
-$com = $bdd->prepare('SELECT recettes.IDrecettes, commentaires.IDcommentaire, membres.pseudo, commentaires.contenu, commentaires.date FROM recettes INNER JOIN commentaires ON commentaires.IDrecette = recettes.IDrecettes INNER JOIN membres ON commentaires.IDmembre = membres.id WHERE IDrecettes = ?');
-$com->execute(array($_GET['IDrecettes']));
-
+include 'Controller.php';
+//PAGE DE DETAILS DE LA RECETTE
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./CSS/recettestyle.css">
-    <link rel="stylesheet" href="./CSS/navbarcss.css">
-    <link rel="stylesheet" href="./CSS/footercss.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('.sidebarBtn').click(function() {
-                $('.sidebar').toggleClass('active');
-                $('.sidebarBtn').toggleClass('toggle');
-            })
-        })
-    </script>
-</head>
+<?php $title = 'Votre Recette' ?>
+<?php $css = './CSS/recettestyle.css' ?>
+
+<?php ob_start(); ?>
 
 <body>
     <?php include('./NavBar.php'); ?>
     <div class="RECETTE">
         <div class="recette">
+            <!-- ICI LE MODERATEUR AURA ACCES A UN BOUTON QUI LUI PERMETRRA DE MODIFIER LA RECETTE -->
             <?php
             if (isset($_SESSION['tipe']) and $_SESSION['tipe'] == 'mod') {
             ?>
-                <button><a href="modifier.php?IDrecettes=<?= $userinfo['IDrecettes'] ?>">MODIFIER RECETTE</a></button>
+            <a href="modifier.php?IDrecettes=<?= $recipeInfo['IDrecettes'] ?>" class="btn btn-success" >MODIFIER RECETTE</a>
             <?php
             }
             ?>
-            <h1><?php echo $userinfo['titreRecettes']; ?></h1>
+            <!-- LE TITRE DE LA RECETTE -->
+            <h1><?php echo $recipeInfo['titreRecettes']; ?></h1>
             <div class="ban">
-                <p><?= nl2br($recette); ?></p><img src="./IMG/<?= $userinfo['image'] ?>">
+            <!-- LE CONTENU DE LA RECETTE                                   L'IMAGE DE LA RECETTE -->
+                <p><?= nl2br($recipeInfo['contenuRecette']); ?></p><img src="./IMG/<?= $recipeInfo['image'] ?>">
             </div>
         </div>
 
         <div class="com">
-            <?php while ($c = $com->fetch()) { ?>
+            <!-- SOUS LA RECETTE ON AFFICHE LES COMMENTAIRES -->
+            <?php while ($c = $comRecipe->fetch()) { ?>
                 <div>
+            <!-- L'ADMINISTRATEUR ET LE MODERATEUR POURRONT SUPPRIMER LES COMMENTAIRES -->
                     <?php
-                    if (isset($_SESSION['tipe']) AND $_SESSION['tipe'] == 'admin' || $_SESSION['tipe'] == 'mod') {
-                      
+                    if (isset($_SESSION['tipe']) and $_SESSION['tipe'] == 'admin' || $_SESSION['tipe'] == 'mod') {
+
                     ?>
-                        <button><a href="bannir.php?IDcommentaire=<?= $c['IDcommentaire'] ?>&IDrecettes=<?= $c['IDrecettes'] ?>">X</a></button>
+                    <a href="modifier.php?IDcommentaire=<?= $c['IDcommentaire'] ?>&IDrecettes=<?= $c['IDrecettes'] ?>" class="btn btn-danger">Supprimer commentaire</a>
                     <?php
                     }
                     ?>
@@ -89,12 +53,13 @@ $com->execute(array($_GET['IDrecettes']));
         </div>
 
         <div class="Addcom">
-
+            <!-- ESPACE POUR POSTER UN NOUVEAU COMMENTAIRE -->
             <h2>Ajouter un commentaire !!!</h2>
             <form method="POST" class="comform">
                 <?php if (isset($_SESSION['id']) and !empty($_SESSION['id'])) { ?>
                     <textarea name="com"></textarea>
                     <input type="submit" name="postcom" value="Envoyer !" />
+            <!-- IL SERA UTILISABLE QUE SI L'UTILSATEUR EST CONNECTé  -->
                 <?php } else {
                 ?>
                     <p>Il faut être connecté pour pouvoir poster un commentaire</p>
@@ -111,5 +76,8 @@ $com->execute(array($_GET['IDrecettes']));
 
     <?php include('./Footer.php'); ?>
 </body>
+<?php $content = ob_get_clean(); ?>
+
+<?php require('template.php'); ?>
 
 </html>

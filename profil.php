@@ -1,42 +1,15 @@
 <?php
-session_start();
 
+include 'userController.php';
 
-include 'db.php';
-
-if (isset($_SESSION['id']) and $_SESSION['id'] > 0) {
-   $getid = intval($_SESSION['id']);
-   $requser = $bdd->prepare('SELECT * FROM membres WHERE id = ?');
-   $requser->execute(array($getid));
-   $userinfo = $requser->fetch();
-}
-
-$recettes = $bdd->prepare('SELECT * FROM recettes WHERE IDmembre = ?');
-$recettes->execute(array($getid));
-$com = $bdd->prepare('SELECT recettes.IDrecettes, recettes.titreRecettes, commentaires.IDmembre, commentaires.contenu, commentaires.date FROM recettes INNER JOIN commentaires ON recettes.IDrecettes = commentaires.IDrecette
- WHERE commentaires.IDmembre = ?');
-$com->execute(array($getid));
-
+//PAGE UTILISATEUR
 ?>
 <html>
 
-<head>
-   <title>TUTO PHP</title>
-   <meta charset="utf-8">
-   <link rel="stylesheet" href="./CSS/profilcss.css">
-   <link rel="stylesheet" href="./CSS/navbarcss.css">
-   <link rel="stylesheet" href="./CSS/footercss.css">
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-   <script type="text/javascript">
-      $(document).ready(function() {
-         $('.sidebarBtn').click(function() {
-            $('.sidebar').toggleClass('active');
-            $('.sidebarBtn').toggleClass('toggle');
-         })
-      })
-   </script>
-</head>
+<?php $title = 'Votre Profil' ?>
+<?php $css = './CSS/profilcss.css' ?>
+
+<?php ob_start(); ?>
 
 <body>
    <?php include('./Navbar.php'); ?>
@@ -45,16 +18,24 @@ $com->execute(array($getid));
    <div class="perso">
       <div class="myrecipes">
          <h3>Mes Recettes</h3>
+         <!-- L'UTILSATEUR PEUT VOIR LES RECETTES QU'IL A POSTé -->
          <?php
-         while ($r = $recettes->fetch()) { ?>
-            <a href="./recette.php?IDrecettes=<?= $r['IDrecettes'] ?>"><?= $r['titreRecettes'] ?></a>
-            <img src="./IMG/<?= $r['image'] ?>" height="200px" width="200px">
-         <?php
-         }
-         ?>
+                while ($r = $recettes->fetch()) { ?>
+
+                    <div class="card" style="width: 18rem;">
+                        <img src="./IMG/<?= $r['image'] ?>" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= $r['titreRecettes'] ?></h5>
+                            <a href="./recette.php?IDrecettes=<?= $r['IDrecettes'] ?>" class="btn btn-primary">Voir Recette</a>
+                        </div>
+                    </div>
+                <?php
+                }
+                ?>
       </div>
       <div class="mycomments">
          <h3>Mes Commentaires</h3>
+         <!-- L'UTILSATEUR POURRA VOIR SES COMMENTAIRES AINSI QUE LES RECETTES COMMENTéS -->
          <?php
 
          while ($c = $com->fetch()) { ?>
@@ -70,14 +51,11 @@ $com->execute(array($getid));
          ?>
       </div>
    </div>
-
-
-
-
-
-
-
    <?php include('./Footer.php'); ?>
 </body>
+<?php $content = ob_get_clean(); ?>
+
+<?php require('template.php'); ?>
+
 
 </html>

@@ -1,24 +1,28 @@
 <?php
 session_start();
 
-
 include 'db.php';
-
+ 
+// ON VERIFIE QUE LE FORMULAIRE DE CONNEXION A BIEN ETE ENVOYé 
 if (isset($_POST['formconnexion'])) {
    $mailconnect = htmlspecialchars($_POST['mailconnect']);
    $mdpconnect = sha1($_POST['mdpconnect']);
+// ON VERIFIE QUE LES ESPACES ONT BIEN ETE COMPLETéS
    if (!empty($mailconnect) and !empty($mdpconnect)) {
       $requser = $bdd->prepare("SELECT * FROM membres WHERE mail = ? AND motdepasse = ?");
       $requser->execute(array($mailconnect, $mdpconnect));
       $userexist = $requser->rowCount();
+   // ON VERIFIE QUE LES DONNéES RENTRéS SOIENT EXACTE
       if ($userexist == 1) {
          $userinfo = $requser->fetch();
          $_SESSION['id'] = $userinfo['id'];
          $_SESSION['pseudo'] = $userinfo['pseudo'];
          $_SESSION['mail'] = $userinfo['mail'];
          $_SESSION['tipe'] = $userinfo['tipe'];
+   // ET ON EST DIRIGé VERS NOTRE PAGE PROFIL
          header("Location: profil.php?id=" . $_SESSION['id']);
-         if ($userinfo['tipe'] == 'admin' OR $userinfo['tipe'] == 'mod') {
+   // LES ADMINISTRATEUR ET LES MODERATEURS ACCEDENT A UNE PAGE DIFFERENTE QU'UN UTILISATEUR BASIQUE
+         if ($userinfo['tipe'] == 'admin' or $userinfo['tipe'] == 'mod') {
             header("Location:membres.php");
          } else {
             header("Location: profil.php?id=" . $_SESSION['id']);
@@ -31,38 +35,29 @@ if (isset($_POST['formconnexion'])) {
    }
 }
 ?>
-<html>
 
-<head>
-   <title>TUTO PHP</title>
-   <meta charset="utf-8">
-   <link rel="stylesheet" href="./CSS/connexionstyle.css">
-   <link rel="stylesheet" href="./CSS/navbarcss.css">
-   <link rel="stylesheet" href="./CSS/footercss.css">
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-   <script type="text/javascript">
-      $(document).ready(function() {
-         $('.sidebarBtn').click(function() {
-            $('.sidebar').toggleClass('active');
-            $('.sidebarBtn').toggleClass('toggle');
-         })
-      })
-   </script>
-</head>
+<?php $title = 'Connexion' ?>
+<?php $css = './CSS/connexionstyle.css' ?>
+
+<?php ob_start(); ?>
 
 <body>
    <?php include('./NavBar.php'); ?>
    <div class="Formular">
       <div class="formularii">
          <form method="POST" action="" class="connect">
-            <span class="span1"><input type="email" name="mailconnect" placeholder="Mail" />
-               <input type="password" name="mdpconnect" placeholder="Mot de passe" /></span>
-            <span class="span2"> <?php
-                                 if (isset($erreur)) {
-                                    echo '<font color="red">' . $erreur . "</font>";
-                                 }
-                                 ?><input class="submit" type="submit" name="formconnexion" value="Se connecter !" /></span>
+
+            <div class="form-floating mb-3">
+               <input type="email" class="form-control" id="floatingInput" name="mailconnect" placeholder="name@example.com">
+               <label for="floatingInput">Email address</label>
+            </div>
+            <div class="form-floating">
+               <input type="password" class="form-control" id="floatingPassword" name="mdpconnect" placeholder="Password">
+               <label for="floatingPassword">Password</label>
+            </div>
+
+            <button class="btn btn-light" name="formconnexion" type="submit">Se connecter !</button>
+
          </form>
 
       </div>
@@ -71,3 +66,7 @@ if (isset($_POST['formconnexion'])) {
 </body>
 
 </html>
+
+<?php $content = ob_get_clean(); ?>
+
+<?php require('template.php'); ?>

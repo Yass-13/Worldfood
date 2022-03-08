@@ -1,8 +1,10 @@
 <?php
+//BARRE DE NAVIGATION
+
+//REQUETE SQL QUI TRIE LES RESULTAT DE LA BARRE DE RECHERCHE
 $searchrec = $bdd->query('SELECT titreRecettes FROM recettes ORDER BY titreRecettes DESC');
 
-
-
+//REQUETE SQL PERMETTANT LA RECHERCHE DE RECETTE 
 if (isset($_GET['q']) and !empty($_GET['q'])) {
     $q = htmlspecialchars($_GET['q']);
     $searchrec = $bdd->query('SELECT * FROM recettes WHERE titreRecettes LIKE "%' . $q . '%" ORDER BY titreRecettes DESC');
@@ -12,10 +14,11 @@ if (isset($_GET['q']) and !empty($_GET['q'])) {
 
 
 <div id="leftside">
-
+<!-- LOGO -->
     <div id="logo">
         <a href="./Index.php"><img src="./IMG/LOGO.png" alt="logo" class="logo"></a>
     </div>
+<!-- BARRE DE RECHERCHE -->
     <div id="searchbar">
         <form method="GET" action="resultsearch.php" class="SearchBar">
             <input type="search" name="q" placeholder="Recherche..." class="searchspace" />
@@ -24,6 +27,7 @@ if (isset($_GET['q']) and !empty($_GET['q'])) {
     </div>
 </div>
 <div class="sidebar">
+<!-- MENU DE NAVIGATION QUAND UN UTILISATEUR EST CONNECTé -->
     <?php
     if (isset($_SESSION['id']) and !empty($_SESSION['id'])) { ?>
         <ul>
@@ -40,6 +44,7 @@ if (isset($_GET['q']) and !empty($_GET['q'])) {
     <?php
     } else {
     ?>
+<!-- MENU DE NAVIGATION QUAND ON'EST PAS CONNECTé -->
         <ul>
             <li><a href="./carte.php">RECETTES DU MONDE</a></li>
             <li><a href="./connexion.php">CONNEXION</a></li>

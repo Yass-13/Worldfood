@@ -3,13 +3,15 @@ session_start();
 
 include 'db.php';
 
+//PAGE POUR AJOUTER UNE NOUVELLE RECETTE
 require 'uploadFile.php';
-
+//CLASSE PHP PERMETTANT DE CHARGER UNE IMAGE POUR SA RECETTE
 $upload = new uploadFile();
 
 
-
-if (isset($_POST['publier'])){
+//QUAND ON RECOIT LE PARAMETRE 'publier'
+//ON EXECUTE LA REQUETE SQL QUI AJOUTE LA RECETTE A LA BASE DE DONNéES
+if (isset($_POST['publier'])) {
     $pays = intval($_GET['IDpays']);
     $membre = intval($_SESSION['id']);
     $titreRecett = htmlspecialchars($_POST['title']);
@@ -18,47 +20,35 @@ if (isset($_POST['publier'])){
     $upload->upload($_FILES);
     $insertrecett = $bdd->prepare("INSERT INTO recettes(IDpays, IDmembre, titreRecettes, contenuRecette, image) VALUES(?, ?, ?, ?, ?)");
     $insertrecett->execute(array($pays, $membre, $titreRecett, $contenuRecett, $img));
-
 }
 ?>
 
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./CSS/newrecettestyle.css">
-    <link rel="stylesheet" href="./CSS/navbarcss.css">
-    <link rel="stylesheet" href="./CSS/footercss.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('.sidebarBtn').click(function() {
-                $('.sidebar').toggleClass('active');
-                $('.sidebarBtn').toggleClass('toggle');
-            })
-        })
-    </script>
-</head>
+<?php $title = 'Nouvelle Recette' ?>
+<?php $css = './CSS/newrecettestyle.css' ?>
+
+<?php ob_start(); ?>
 
 <body>
     <?php include('./NavBar.php'); ?>
 
-   
-    <div class="FFF"> 
+
+    <div class="FFF">
         <h1>Ajoutez ici votre recette !</h1>
         <form action="" method="POST" enctype="multipart/form-data" class="formadd">
             Prenez une belle photo de vore plat:
-            <input type="file" name="fileToUpload" id="fileToUpload">
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="fileToUpload" name="fileToUpload">
+                <label class="custom-file-label" for="fileToUpload"></label>
+            </div>
+           
             <h4>Mettez un titre</h4>
             <input type="text" id="titre" name="title">
             <h4>Expliquez nous comment faire votre plat</h4>
             <textarea placeholder="mettez les ingredients et la préparation de votre recette..." name="contenu"></textarea>
-            <input type="submit" placeholder="Publier" name="publier">
+            <input type="submit" placeholder="Publier" name="publier" class=" btn btn-primary" >
 
         </form>
     </div>
@@ -68,5 +58,8 @@ if (isset($_POST['publier'])){
     <?php include('./Footer.php'); ?>
 
 </body>
+<?php $content = ob_get_clean(); ?>
+
+<?php require('template.php'); ?>
 
 </html>

@@ -1,38 +1,20 @@
 <?php
  session_start();
-
-
-
  include 'db.php';
-$membres = $bdd->prepare('SELECT * FROM pays');
-$membres->execute();
-$bonjour= $membres->fetchAll();
 
-?> 
+?>
 
-<!DOCTYPE html>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <link rel="stylesheet" href="./CSS/cartestyle.css">
-    <link rel="stylesheet" href="./CSS/navbarcss.css">
-   <link rel="stylesheet" href="./CSS/footercss.css">
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-   <script type="text/javascript">
-      $(document).ready(function() {
-         $('.sidebarBtn').click(function() {
-            $('.sidebar').toggleClass('active');
-            $('.sidebarBtn').toggleClass('toggle');
-         })
-      })
-   </script>
-</head>
-
+<?php $title = 'La carte des Recettes'?>
+<?php $css = "./CSS/cartestyle.css" ?>
+  
+<?php ob_start(); ?>
 <body class="bodymap">
 <?php include('./NavBar.php'); ?>
-    
+
+<!-- ICI LA PAGE REPRESENTANT LA MAPPEMONDE AVEC LES DIFFERENTES ZONE CLIQUABLES QUI REDIRIGE VERS LA PAGE DU PAYS ET
+ET QUI AFFICHE SES RECETTES  -->
+
 <div id="mapsection">
     <img src="./IMG/carte.jpg" width="518" height="333" usemap="#map" />
     <map name="map">
@@ -94,10 +76,14 @@ $bonjour= $membres->fetchAll();
             coords="425,157,436,147,436,140,434,136,435,132,440,132,442,134,442,136,439,137,438,140,441,146,441,152,439,154,435,155,432,157,430,160,428,162,424,158,426,156"
             alt="Japon" href="pays.php?IDpays=11" />
     </map>
-    <h2>Decouvrez les aliments du monde entier en cliquant sur les differents pays de la carte.
+    <h2>Decouvrez les plats du monde entier en cliquant sur les differents pays de la carte.
 Bon Voyage culinaire !!</h2>
 </div>
 <?php include('./Footer.php'); ?>
 </body>
 
 </html>
+
+<?php $content = ob_get_clean(); ?>
+
+<?php require('template.php'); ?>

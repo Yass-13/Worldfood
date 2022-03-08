@@ -1,72 +1,44 @@
 <?php
-session_start();
 
-
-include 'db.php';
-
-
-if (isset($_GET['IDpays']) and $_GET['IDpays'] > 0) {
-    $getid = intval($_GET['IDpays']);
-    $requser = $bdd->prepare('SELECT * FROM pays WHERE IDpays = ?');
-    $requser->execute(array($getid));
-    $userinfo = $requser->fetch();
-    $rec = $bdd->prepare('SELECT * FROM recettes WHERE IDpays = ?');
-    $rec->execute(array($getid));
-}
+include 'userController.php';
+//PAGE DYNAMIQUE PAR PAYS QUI AFFICHE LES DIFFERENTES RECETTES PAR PAYS
 ?>
 
 <!DOCTYPE html>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <link rel="stylesheet" href="./CSS/countrystyle.css">
-    <link rel="stylesheet" href="./CSS/navbarcss.css">
-    <link rel="stylesheet" href="./CSS/footercss.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('.sidebarBtn').click(function() {
-                $('.sidebar').toggleClass('active');
-                $('.sidebarBtn').toggleClass('toggle');
-            })
-        })
-    </script>
-</head>
+<?php $title = 'Pays' ?>
+<?php $css = './CSS/countrystyle.css' ?>
+
+<?php ob_start(); ?>
 
 <body>
     <section class="country">
         <?php include('./NavBar.php'); ?>
         <div class="Acceuil">
             <div class="recettes">
+            <!-- DRAPEAU -->
                 <div class="flag"><img src="./IMG/<?= $userinfo['flag'] ?>" alt="usa flag" class="Flag"></div><br>
 
-               <?php if (isset($_SESSION['id']) and !empty($_SESSION['id'])) { ?>
-
-                    <a class="css-button" href="./newrecette.php?IDpays=<?=$_GET['IDpays'];?>">
+                <?php if (isset($_SESSION['id']) and !empty($_SESSION['id'])) { ?>
+            <!-- BOUTON POUR ACCEDER AU FORMULAIRE D'AJOUT DE RECETTE (UTILISABLE QUE SI L'UTILISATEUR EST CONNECTé) -->
+                    <a class="css-button" href="./newrecette.php?IDpays=<?= $_GET['IDpays']; ?>">
                         <span class="css-button-icon"><i class="fa fa-hand-peace-o" aria-hidden="true"></i></span>
                         <span class="css-button-text">Ajoutez Votre Recette !</span>
                     </a>
                 <?php } else { ?>
-                    <a class="css-button" >
+                    <a class="css-button">
                         <span class="css-button-icon"><i class="fa fa-hand-peace-o" aria-hidden="true"></i></span>
                         <span class="css-button-text">Connectez-vous pour ajouter une recette</span>
                     </a>
                 <?php
                 }
                 ?>
-               
                 <div class="t">
+                    <!-- ON AFFICHE LES RECETTES -->
                     <?php
-                    while ($bonjour = $rec->fetch()) {
-                        $recette = $bonjour['titreRecettes'];
-                        $img = $bonjour['image'];
-                    ?>
+                    while ($cr = $countryRecipe->fetch()) {?>
                         <div class="articles">
-                            <a href="./recette.php?IDrecettes=<?= $bonjour['IDrecettes']; ?>"><?= $recette; ?></a><img src="./IMG/<?= $img ?>" class="x">
-                            
+                            <a href="./recette.php?IDrecettes=<?= $cr['IDrecettes']; ?>" class="btn btn-success btn-sm" ><?= $cr['titreRecettes'] ?></a><img src="./IMG/<?= $cr['image'] ?>" class="x">
                         </div>
                     <?php
                     }
@@ -77,5 +49,8 @@ if (isset($_GET['IDpays']) and $_GET['IDpays'] > 0) {
         <?php include('./Footer.php'); ?>
     </section>
 </body>
+<?php $content = ob_get_clean(); ?>
+
+<?php require('template.php'); ?>
 
 </html>
