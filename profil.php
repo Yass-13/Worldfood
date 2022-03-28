@@ -1,5 +1,7 @@
 <?php
 
+
+
 include 'userController.php';
 
 //PAGE UTILISATEUR
@@ -13,7 +15,7 @@ include 'userController.php';
 
 <body>
    <?php include('./Navbar.php'); ?>
-   <h2>Bonjour <?php echo $_SESSION['pseudo']; ?> ! </h2>
+   <h2>Bonjour <?php echo $_SESSION['pseudo'];?> ! </h2>
 
    <div class="perso">
       <div class="myrecipes">

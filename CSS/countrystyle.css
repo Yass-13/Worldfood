@@ -34,12 +34,15 @@ background-repeat:no-repeat;
 .Flag{
     width: 30%;
     margin-top: 40px;
+    padding-bottom: 20px;
 }
 
 .flag{
     display: flex;
     justify-content: center;
-
+    flex-direction: column;
+    align-items: center;
+    color: #4cce70;
 }
 
 .x{

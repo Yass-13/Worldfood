@@ -25,7 +25,7 @@ include 'Controller.php';
             }
             ?>
             <!-- LE TITRE DE LA RECETTE -->
-            <h1><?php echo $recipeInfo['titreRecettes']; ?></h1>
+            <h1><?= $recipeInfo['titreRecettes']; ?></h1>
             <div class="ban">
             <!-- LE CONTENU DE LA RECETTE                                   L'IMAGE DE LA RECETTE -->
                 <p><?= nl2br($recipeInfo['contenuRecette']); ?></p><img src="./IMG/<?= $recipeInfo['image'] ?>">

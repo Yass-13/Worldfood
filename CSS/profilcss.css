@@ -45,6 +45,7 @@ h3 {
     justify-content: center;
     overflow: scroll;
     margin-bottom: 20px;
+    z-index: 2;
 }
 
 .mycomments {

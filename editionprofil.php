@@ -15,6 +15,7 @@ if (isset($_SESSION['id'])) {
       $insertpseudo = $bdd->prepare("UPDATE membres SET pseudo = ? WHERE id = ?");
       $insertpseudo->execute(array($newpseudo, $_SESSION['id']));
       header('Location: profil.php?id=' . $_SESSION['id']);
+
    }
 //MODIFICATION DU MAIL
    if (isset($_POST['newmail']) and !empty($_POST['newmail']) and $_POST['newmail'] != $user['mail']) {
@@ -25,8 +26,8 @@ if (isset($_SESSION['id'])) {
    }
 //MODIFICATION DU MOT DE PASSE
    if (isset($_POST['newmdp1']) and !empty($_POST['newmdp1']) and isset($_POST['newmdp2']) and !empty($_POST['newmdp2'])) {
-      $mdp1 = sha1($_POST['newmdp1']);
-      $mdp2 = sha1($_POST['newmdp2']);
+      $mdp1 = password_hash($_POST['newmdp1'], PASSWORD_BCRYPT );
+      $mdp2 = password_verify($_POST['newmdp2'],$mdp1 );
       if ($mdp1 == $mdp2) {
          $insertmdp = $bdd->prepare("UPDATE membres SET motdepasse = ? WHERE id = ?");
          $insertmdp->execute(array($mdp1, $_SESSION['id']));

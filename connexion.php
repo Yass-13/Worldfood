@@ -2,38 +2,37 @@
 session_start();
 
 include 'db.php';
- 
+
 // ON VERIFIE QUE LE FORMULAIRE DE CONNEXION A BIEN ETE ENVOYé 
 if (isset($_POST['formconnexion'])) {
    $mailconnect = htmlspecialchars($_POST['mailconnect']);
-   $mdpconnect = sha1($_POST['mdpconnect']);
-// ON VERIFIE QUE LES ESPACES ONT BIEN ETE COMPLETéS
-   if (!empty($mailconnect) and !empty($mdpconnect)) {
-      $requser = $bdd->prepare("SELECT * FROM membres WHERE mail = ? AND motdepasse = ?");
-      $requser->execute(array($mailconnect, $mdpconnect));
-      $userexist = $requser->rowCount();
-   // ON VERIFIE QUE LES DONNéES RENTRéS SOIENT EXACTE
-      if ($userexist == 1) {
-         $userinfo = $requser->fetch();
-         $_SESSION['id'] = $userinfo['id'];
-         $_SESSION['pseudo'] = $userinfo['pseudo'];
-         $_SESSION['mail'] = $userinfo['mail'];
-         $_SESSION['tipe'] = $userinfo['tipe'];
-   // ET ON EST DIRIGé VERS NOTRE PAGE PROFIL
-         header("Location: profil.php?id=" . $_SESSION['id']);
-   // LES ADMINISTRATEUR ET LES MODERATEURS ACCEDENT A UNE PAGE DIFFERENTE QU'UN UTILISATEUR BASIQUE
-         if ($userinfo['tipe'] == 'admin' or $userinfo['tipe'] == 'mod') {
-            header("Location:membres.php");
-         } else {
-            header("Location: profil.php?id=" . $_SESSION['id']);
-         }
+   $mdpconnect = $_POST['mdpconnect'];
+
+   $requser = $bdd->query("SELECT * FROM membres WHERE mail = '" . $mailconnect . "'");
+   $userexist = $requser->rowCount();
+   if ($userexist == 1) {
+      $userinfo = $requser->fetch();
+      $_SESSION['id'] = $userinfo['id'];
+      $_SESSION['pseudo'] = $userinfo['pseudo'];
+      $_SESSION['motdepasse'] = $userinfo['motdepasse'];
+      $_SESSION['mail'] = $userinfo['mail'];
+  
+      $_SESSION['tipe'] = $userinfo['tipe'];
+      // ET ON EST DIRIGé VERS NOTRE PAGE PROFIL
+      header("Location: profil.php?id=" . $_SESSION['id']);
+      // LES ADMINISTRATEUR ET LES MODERATEURS ACCEDENT A UNE PAGE DIFFERENTE QU'UN UTILISATEUR BASIQUE
+      if ($userinfo['tipe'] == 'admin' or $userinfo['tipe'] == 'mod') {
+         header("Location:membres.php");
       } else {
-         $erreur = "Mauvais mail ou mot de passe !";
+         header("Location: profil.php?id=" . $_SESSION['id']);
       }
    } else {
-      $erreur = "Tous les champs doivent être complétés !";
+      $erreur = "Mauvais mail ou mot de passe !";
    }
+} else {
+   $erreur = "Tous les champs doivent être complétés !";
 }
+
 ?>
 
 <?php $title = 'Connexion' ?>
@@ -59,7 +58,6 @@ if (isset($_POST['formconnexion'])) {
             <button class="btn btn-light" name="formconnexion" type="submit">Se connecter !</button>
 
          </form>
-
       </div>
    </div>
    <?php include('./Footer.php'); ?>

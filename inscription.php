@@ -8,8 +8,9 @@ if (isset($_POST['forminscription'])) {
    $pseudo = htmlspecialchars($_POST['pseudo']);
    $mail = htmlspecialchars($_POST['mail']);
    $mail2 = htmlspecialchars($_POST['mail2']);
-   $mdp = sha1($_POST['mdp']);
-   $mdp2 = sha1($_POST['mdp2']);
+   $mdp = password_hash($_POST['mdp'], PASSWORD_BCRYPT );
+   $mdp2 = password_verify($_POST['mdp'],$mdp );
+
 //ON VERIFIE QUE LES ESPACE SONT BIEN COMPLETéS
    if (!empty($_POST['nom']) and !empty($_POST['prenom']) and !empty($_POST['pseudo']) and !empty($_POST['mail']) and !empty($_POST['mail2']) and !empty($_POST['mdp']) and !empty($_POST['mdp2'])) {
       $pseudolength = strlen($pseudo);

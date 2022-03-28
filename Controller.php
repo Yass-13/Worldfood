@@ -5,12 +5,12 @@ session_start();
 include 'db.php';
 
 //REQUETE SQL QUI RECUPERE LES DETAILS D'UNE RECETTE QUAND ON SE REND SUR SA PAGE
-if (isset($_GET['IDrecettes']) and $_GET['IDrecettes'] > 0) {
-    $getid = intval($_GET['IDrecettes']);
-    $reqRecipe = $bdd->prepare('SELECT * FROM recettes WHERE IDrecettes = ?');
-    $reqRecipe->execute(array($getid));
-    $recipeInfo = $reqRecipe->fetch();
-//REQUETE SQL QUI PERMET AFFICHER LES COMMENTAIRES PAR RECETTE
+if (isset($_GET['IDrecettes']) and $_GET['IDrecettes'] > 0) {       //ON VERIFIE QUE L'ID DE LA RECETTE EXISTE
+    $getid = intval($_GET['IDrecettes']);                             // ON L'ASSIGNE A UNE VARIABLE
+    $reqRecipe = $bdd->prepare('SELECT * FROM recettes WHERE IDrecettes = ?'); //ON PREPARE LA REQUETE EN SELECTIONNANT TOUTES LES INFOS SELON L'ID DE LA RECETTE
+    $reqRecipe->execute(array($getid));                                     // ON EXECUTE LA REQUETE 
+    $recipeInfo = $reqRecipe->fetch();                                      //ON STOCKE LES INFOS DANS UNE VARIABLE GRACE A fetch()
+    //REQUETE SQL QUI PERMET AFFICHER LES COMMENTAIRES PAR RECETTE
     $comRecipe = $bdd->prepare('SELECT recettes.IDrecettes, commentaires.IDcommentaire, membres.pseudo, commentaires.contenu, commentaires.date FROM recettes INNER JOIN commentaires ON commentaires.IDrecette = recettes.IDrecettes INNER JOIN membres ON commentaires.IDmembre = membres.id WHERE IDrecettes = ?');
     $comRecipe->execute(array($getid));
 }
@@ -70,3 +70,4 @@ if (isset($_GET['IDcommentaire'])) {
     $delr->execute(array($supprimer));
     header('Location:recette.php?IDrecettes=' . $_GET['IDrecettes']);
 }
+
