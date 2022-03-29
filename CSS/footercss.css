@@ -24,3 +24,12 @@
     padding-top: 20px;
     
 }
+
+@media screen and (max-width: 430px) {
+    .facebook, .twitter, .pinterest, .instagram{
+        font-size: 43px;
+    }
+
+
+}
+

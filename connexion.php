@@ -8,6 +8,7 @@ if (isset($_POST['formconnexion'])) {
    $mailconnect = htmlspecialchars($_POST['mailconnect']);
    $mdpconnect = $_POST['mdpconnect'];
 
+
    $requser = $bdd->query("SELECT * FROM membres WHERE mail = '" . $mailconnect . "'");
    $userexist = $requser->rowCount();
    if ($userexist == 1) {
@@ -16,7 +17,6 @@ if (isset($_POST['formconnexion'])) {
       $_SESSION['pseudo'] = $userinfo['pseudo'];
       $_SESSION['motdepasse'] = $userinfo['motdepasse'];
       $_SESSION['mail'] = $userinfo['mail'];
-  
       $_SESSION['tipe'] = $userinfo['tipe'];
       // ET ON EST DIRIGé VERS NOTRE PAGE PROFIL
       header("Location: profil.php?id=" . $_SESSION['id']);

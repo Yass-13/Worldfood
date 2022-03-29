@@ -14,6 +14,7 @@ h2 {
     text-align: center;
     padding: 110px;
     font-size: 50px;
+
 }
 
 h3 {
@@ -30,7 +31,7 @@ h3 {
     flex-direction: column;
     justify-content: space-evenly;
     height: 1000px;
-    margin-top: -80px;
+    margin-top: -180px;
 
 }
 

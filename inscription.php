@@ -8,10 +8,10 @@ if (isset($_POST['forminscription'])) {
    $pseudo = htmlspecialchars($_POST['pseudo']);
    $mail = htmlspecialchars($_POST['mail']);
    $mail2 = htmlspecialchars($_POST['mail2']);
-   $mdp = password_hash($_POST['mdp'], PASSWORD_BCRYPT );
-   $mdp2 = password_verify($_POST['mdp'],$mdp );
+   $mdp = password_hash($_POST['mdp'], PASSWORD_BCRYPT);
+   $mdp2 = password_verify($_POST['mdp'], $mdp);
 
-//ON VERIFIE QUE LES ESPACE SONT BIEN COMPLETéS
+   //ON VERIFIE QUE LES ESPACE SONT BIEN COMPLETéS
    if (!empty($_POST['nom']) and !empty($_POST['prenom']) and !empty($_POST['pseudo']) and !empty($_POST['mail']) and !empty($_POST['mail2']) and !empty($_POST['mdp']) and !empty($_POST['mdp2'])) {
       $pseudolength = strlen($pseudo);
       //ON VERIFIE QUE LE PSEUDO FASSE MOINS DE 255 CARACTERES
@@ -64,71 +64,46 @@ if (isset($_POST['forminscription'])) {
       <h2>Inscription</h2>
       <br /><br />
       <form method="POST" action="" class="formularr">
-         <table>
-            <tr>
-               <td>
-                  <label for="nom">Nom :</label>
-               </td>
-               <td>
-                  <input type="text" placeholder="Votre nom" id="nom" name="nom" value="" />
-               </td>
-            </tr>
-            <tr>
-               <td>
-                  <label for="prenom">Prenom :</label>
-               </td>
-               <td>
-                  <input type="text" placeholder="Votre prenom" id="prenom" name="prenom" value="" />
-               </td>
-            </tr>
-            <tr>
-               <td>
-                  <label for="pseudo">Pseudo :</label>
-               </td>
-               <td>
-                  <input type="text" placeholder="Votre pseudo" id="pseudo" name="pseudo" value="" />
-               </td>
-            </tr>
-            <tr>
-               <td>
-                  <label for="mail">Mail :</label>
-               </td>
-               <td>
-                  <input type="email" placeholder="Votre mail" id="mail" name="mail" value="" />
-               </td>
-            </tr>
-            <tr>
-               <td>
-                  <label for="mail2">Confirmation du mail :</label>
-               </td>
-               <td>
-                  <input type="email" placeholder="Confirmez votre mail" id="mail2" name="mail2" value="" />
-               </td>
-            </tr>
-            <tr>
-               <td>
-                  <label for="mdp">Mot de passe :</label>
-               </td>
-               <td>
-                  <input type="password" placeholder="Votre mot de passe" id="mdp" name="mdp" />
-               </td>
-            </tr>
-            <tr>
-               <td>
-                  <label for="mdp2">Confirmation du mot de passe :</label>
-               </td>
-               <td>
-                  <input type="password" placeholder="Confirmez votre mot de passe" id="mdp2" name="mdp2" />
-               </td>
-            </tr>
-            <tr>
-               <td></td>
-               <td>
-                  <br />
-                  <button class="btn btn-light" name="forminscription" type="submit">Je m'inscris !</button>
-               </td>
-            </tr>
-         </table>
+         <div>
+            <label for="nom">Nom :</label>
+            <input type="text" placeholder="Votre nom" id="nom" name="nom" value="" />
+         </div>
+         
+         <div>
+            <label for="prenom">Prenom :</label>
+            <input type="text" placeholder="Votre prenom" id="prenom" name="prenom" value="" />
+         </div>
+
+         <div>
+            <label for="pseudo">Pseudo :</label>
+            <input type="text" placeholder="Votre pseudo" id="pseudo" name="pseudo" value="" />
+         </div>
+
+         <div>
+            <label for="mail">Mail :</label>
+            <input type="email" placeholder="Votre mail" id="mail" name="mail" value="" />
+         </div>
+
+         <div>
+            <label for="mail2">Confirmation du mail :</label>
+
+            <input type="email" placeholder="Confirmez votre mail" id="mail2" name="mail2" value="" />
+         </div>
+
+         <div>
+            <label for="mdp">Mot de passe :</label>
+
+            <input type="password" placeholder="Votre mot de passe" id="mdp" name="mdp" />
+         </div>
+
+         <div>
+            <label for="mdp2">Confirmation du mot de passe :</label>
+
+            <input type="password" placeholder="Confirmez votre mot de passe" id="mdp2" name="mdp2" />
+         </div>
+
+         <button class="btn btn-light" name="forminscription" type="submit">Je m'inscris !</button>
+
       </form>
       <?php
       if (isset($erreur)) {

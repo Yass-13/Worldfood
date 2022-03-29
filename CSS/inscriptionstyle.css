@@ -1,78 +1,110 @@
-body{
+body {
     background: url(../IMG/Background.jpg);
     background-size: cover;
-    background-repeat:no-repeat; 
+    background-repeat: no-repeat;
 
-    }
+}
 
-    .Formular{
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        justify-content: center;
-        height: 800px;
-        margin-top: 50px;
-    }
+.Formular {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    height: 800px;
+    margin-top: 50px;
+}
 
-    .formularr{
-        background: url(../IMG/planche.jpg);
-        width: 50%;
-        height: 80%;
-        border-radius: 60px;
-        box-shadow: 25px 20px 7px rgba(0, 0, 0, 0.466);
-        display: flex;
-        justify-content: center;
-    }
-
-    .formularr input{
-        border: 3px solid #262626;
-        padding: 1% 14% 1% 1%;
-        height: 36px;
-        border-radius: 5px ;
-        outline: none;
+.formularr {
+    background: url(../IMG/planche.jpg);
+    width: 50%;
+    height: 80%;
+    border-radius: 60px;
+    box-shadow: 25px 20px 7px rgba(0, 0, 0, 0.466);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 15px;
     
+}
+
+.formularr input {
+    border: 3px solid #262626;
+    padding: 1% 14% 1% 1%;
+    height: 36px;
+    border-radius: 5px;
+    outline: none;
+
+}
+
+.formularr div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.formEdition {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    height: 800px;
+    margin-top: 50px;
+    width: 100%;
+}
+
+.formEdition textarea {
+    width: 65%;
+    height: 65%;
+    resize: none;
+}
+
+.edition {
+    background: url(../IMG/planche.jpg);
+    width: 55%;
+    height: 65%;
+    border-radius: 60px;
+    box-shadow: 25px 20px 7px rgba(0, 0, 0, 0.466);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 4%;
+    padding: 15px;
+}
+
+.edition input {
+    border: 3px solid #262626;
+    padding: 1% 14% 1% 1%;
+    height: 36px;
+    width: 65%;
+    border-radius: 5px;
+    outline: none;
+
+}
+
+.edition div {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+h2 {
+    font-size: 35px;
+}
+
+@media screen and (max-width: 675px) {
+    .formularr div {
+       flex-direction: column;
     }
 
-    .formEdition{
+}
+
+@media screen and (max-width: 975px) {
+    .edition div {
         display: flex;
-        align-items: center;
-        flex-direction: column;
-        justify-content: center;
-        height: 800px;
-        margin-top: 50px;
+        justify-content: space-between;
         width: 100%;
-    }
-
-    .formEdition textarea{
-        width: 65%;
-        height: 65%;
-        resize: none;
-    }
-
-    .edition{
-        background: url(../IMG/planche.jpg);
-        width: 30%;
-        height: 65%;
-        border-radius: 60px;
-        box-shadow: 25px 20px 7px rgba(0, 0, 0, 0.466);
-        display: flex;
-        justify-content: center;
         flex-direction: column;
-        align-items: center;
-        margin-top: 4%;
-    }
+    }    
 
-    .edition input{
-        border: 3px solid #262626;
-        padding: 1% 14% 1% 1%;
-        height: 36px;
-        width: 65%;
-        border-radius: 5px ;
-        outline: none;
-    
-    }
-
-    h2{
-        font-size: 35px;
-    }
+}
 
