@@ -27,7 +27,7 @@ if (isset($_POST['com'])) {
 }
 
 //REQUETES SQL QUI PERMETTENT D'AFFICHER LES MEMBRES ET LES RECETTES (ADMINISTRATEUR)
-$displayUsers = $bdd->query('SELECT * FROM membres ');
+$displayUsers = $bdd->query('SELECT * FROM membres ORDER BY tipe ASC');
 $displayRecipes = $bdd->query('SELECT * FROM recettes ');
 
 

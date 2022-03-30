@@ -14,6 +14,7 @@ if (isset($_POST['formconnexion'])) {
       $userinfo = $requser->fetch();
       $mdp = $userinfo['motdepasse'];
       $mdp2 =password_verify($mdpconnect, $mdp);
+      var_dump($mdp2);
       if ($mdp2) {   
          $_SESSION['id'] = $userinfo['id'];
          $_SESSION['pseudo'] = $userinfo['pseudo'];
@@ -63,7 +64,7 @@ if (isset($_POST['formconnexion'])) {
 
             <button class="btn btn-light" name="formconnexion" type="submit">Se connecter !</button>
 
-         </form>
+         </form>  
       </div>
    </div>
    <?php include('./Footer.php'); ?>
