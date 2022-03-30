@@ -7,24 +7,30 @@ include 'db.php';
 if (isset($_POST['formconnexion'])) {
    $mailconnect = htmlspecialchars($_POST['mailconnect']);
    $mdpconnect = $_POST['mdpconnect'];
-
-
    $requser = $bdd->query("SELECT * FROM membres WHERE mail = '" . $mailconnect . "'");
    $userexist = $requser->rowCount();
+
    if ($userexist == 1) {
       $userinfo = $requser->fetch();
-      $_SESSION['id'] = $userinfo['id'];
-      $_SESSION['pseudo'] = $userinfo['pseudo'];
-      $_SESSION['motdepasse'] = $userinfo['motdepasse'];
-      $_SESSION['mail'] = $userinfo['mail'];
-      $_SESSION['tipe'] = $userinfo['tipe'];
-      // ET ON EST DIRIGé VERS NOTRE PAGE PROFIL
-      header("Location: profil.php?id=" . $_SESSION['id']);
-      // LES ADMINISTRATEUR ET LES MODERATEURS ACCEDENT A UNE PAGE DIFFERENTE QU'UN UTILISATEUR BASIQUE
-      if ($userinfo['tipe'] == 'admin' or $userinfo['tipe'] == 'mod') {
-         header("Location:membres.php");
-      } else {
+      $mdp = $userinfo['motdepasse'];
+      $mdp2 =password_verify($mdpconnect, $mdp);
+      if ($mdp2) {   
+         $_SESSION['id'] = $userinfo['id'];
+         $_SESSION['pseudo'] = $userinfo['pseudo'];
+         $_SESSION['motdepasse'] = $userinfo['motdepasse'];
+         $_SESSION['mail'] = $userinfo['mail'];
+         $_SESSION['tipe'] = $userinfo['tipe'];
+         // ET ON EST DIRIGé VERS NOTRE PAGE PROFIL
          header("Location: profil.php?id=" . $_SESSION['id']);
+         // LES ADMINISTRATEUR ET LES MODERATEURS ACCEDENT A UNE PAGE DIFFERENTE QU'UN UTILISATEUR BASIQUE
+         if ($userinfo['tipe'] == 'admin' or $userinfo['tipe'] == 'mod') {
+            header("Location:membres.php");
+         } else {
+            header("Location: profil.php?id=" . $_SESSION['id']);
+         } 
+      }
+      else {
+         $erreur = "Mauvais mot de passe !";
       }
    } else {
       $erreur = "Mauvais mail ou mot de passe !";
