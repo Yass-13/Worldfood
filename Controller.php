@@ -24,6 +24,8 @@ if (isset($_POST['com'])) {
 
     $ins = $bdd->prepare("INSERT INTO commentaires(IDrecette, IDmembre, contenu, date) VALUES(?, ?, ?, ?)");
     $ins->execute(array($getid, $user, $comment, $date));
+    
+
 }
 
 //REQUETES SQL QUI PERMETTENT D'AFFICHER LES MEMBRES ET LES RECETTES (ADMINISTRATEUR)
@@ -50,8 +52,13 @@ if (isset($_GET['demote'])) {
 //REQUETE SQL QUI SUPPRIME UN UTILISATEUR DE LA BASE DE DONNéES
 if (isset($_GET['supprime'])) {
     $supprime = intval($_GET['supprime']);
-    $del = $bdd->prepare("DELETE FROM membres WHERE id = ?");
+    $del = $bdd->prepare("DELETE FROM commentaires WHERE IDmembre = ?");
     $del->execute(array($supprime));
+    $del2 = $bdd->prepare("DELETE FROM recettes WHERE IDmembre = ?");
+    $del2->execute(array($supprime));
+    $del3 = $bdd->prepare("DELETE FROM membres WHERE id = ?");
+    $del3->execute(array($supprime));
+
     header('Location: membres.php');
 }
 
